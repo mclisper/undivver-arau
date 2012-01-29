@@ -1,0 +1,1566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>project</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-01-29 12:58:27 MSK"/>
+<meta name="author" content="Urist McLisper"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/worg.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">project</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Чужой ROADMAP </a>
+<ul>
+<li><a href="#sec-1-1">1.1 версия 0.1 </a></li>
+<li><a href="#sec-1-2">1.2 версия 0.2 </a></li>
+<li><a href="#sec-1-3">1.3 версия 0.3 </a></li>
+<li><a href="#sec-1-4">1.4 версия 0.4 </a></li>
+<li><a href="#sec-1-5">1.5 версия 0.5 </a></li>
+<li><a href="#sec-1-6">1.6 версия 0.6 </a></li>
+<li><a href="#sec-1-7">1.7 версия 1.0 </a></li>
+<li><a href="#sec-1-8">1.8 версия 1.1 </a></li>
+<li><a href="#sec-1-9">1.9 версия 1.2 </a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Проект разработки дизайн-документа </a>
+<ul>
+<li><a href="#sec-2-1">2.1 Название проекта </a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Требования </a>
+<ul>
+<li><a href="#sec-3-1">3.1 Требования к конечному продукту </a>
+<ul>
+<li><a href="#sec-3-1-1">3.1.1 Приоритетные </a></li>
+<li><a href="#sec-3-1-2">3.1.2 Менее приоритетные </a></li>
+</ul>
+</li>
+<li><a href="#sec-3-2">3.2 Требования к процессу разработки </a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 Основные подсистемы </a>
+<ul>
+<li><a href="#sec-4-1">4.1 Игра (игровая подсистема) </a>
+<ul>
+<li><a href="#sec-4-1-1">4.1.1 Требования </a></li>
+<li><a href="#sec-4-1-2">4.1.2 Usecase </a></li>
+<li><a href="#sec-4-1-3">4.1.3 Главный цикл </a></li>
+<li><a href="#sec-4-1-4">4.1.4 Общие рекомендации по проектированию - http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html </a></li>
+</ul>
+</li>
+<li><a href="#sec-4-2">4.2 Интерфейс </a>
+<ul>
+<li><a href="#sec-4-2-1">4.2.1 SDL / CL-TCOD </a></li>
+<li><a href="#sec-4-2-2">4.2.2 Текстовый / Тайловый </a></li>
+</ul>
+</li>
+<li><a href="#sec-4-3">4.3 Мир </a>
+<ul>
+<li><a href="#sec-4-3-1">4.3.1 Полезные статьи </a></li>
+<li><a href="#sec-4-3-2">4.3.2 Карта высот - http://www.youtube.com/watch?v=lfOg4KnLgjs </a></li>
+<li><a href="#sec-4-3-3">4.3.3 Биомы и климат </a></li>
+</ul>
+</li>
+<li><a href="#sec-4-4">4.4 Время </a>
+<ul>
+<li><a href="#sec-4-4-1">4.4.1 Времена года (связано с биомами и климатом) </a></li>
+<li><a href="#sec-4-4-2">4.4.2 День / ночь. </a></li>
+</ul>
+</li>
+<li><a href="#sec-4-5">4.5 Объекты </a></li>
+<li><a href="#sec-4-6">4.6 Строительство </a></li>
+<li><a href="#sec-4-7">4.7 Раскопки </a></li>
+<li><a href="#sec-4-8">4.8 Существа </a></li>
+<li><a href="#sec-4-9">4.9 Механизмы и аппараты </a></li>
+<li><a href="#sec-4-10">4.10 Вещества / материалы </a>
+<ul>
+<li><a href="#sec-4-10-1">4.10.1 Жидкости </a></li>
+<li><a href="#sec-4-10-2">4.10.2 Газы </a></li>
+<li><a href="#sec-4-10-3">4.10.3 Метал </a></li>
+<li><a href="#sec-4-10-4">4.10.4 Ювелирные изделия </a></li>
+<li><a href="#sec-4-10-5">4.10.5 Минералы </a></li>
+<li><a href="#sec-4-10-6">4.10.6 Драгоценные камни </a></li>
+</ul>
+</li>
+<li><a href="#sec-4-11">4.11 Цивилизации, города, поселки - генерация </a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 Полезная инфа </a>
+<ul>
+<li><a href="#sec-5-1">5.1 40 механик для социальных игр - http://habrahabr.ru/blogs/social_networks/114725/ </a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 Хаотичный список фич и идей </a>
+<ul>
+<li><a href="#sec-6-1">6.1 Заговоры </a></li>
+<li><a href="#sec-6-2">6.2 Дварфийский язык </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Чужой ROADMAP </h2>
+<div class="outline-text-2" id="text-1">
+
+<p>Вся разработка ведётся открытым способом в публичном репозитории (гитхаб, гуглокод или типа того). 
+Между каждым официальным выпуском совершаются десятки и сотни коммитов. Присвоение номера и выпуск (с постиками в бложеках и на бордочках) осуществляются когда все перечисленные условия выполнены. Какие-то подсистемы могут развиваться быстрее остальных и опережать график, в таких случаях релиз всё равно будет ждать отстающих. 
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> версия 0.1 </h3>
+<div class="outline-text-3" id="text-1-1">
+
+<ol>
+<li>мир 100x100x100 тайлов 
+</li>
+<li>целиком в памяти 
+</li>
+<li>три вида минералов 
+</li>
+<li>если парсер равок готов - пусть будет и минералы берутся из него, иначе аккуратно захардкодим их до поры. 
+</li>
+<li>примитивный генератор мира (генерим карту высот, заливаем всё первым минералом, местами делаем вкрапления второго и третьего минерала)
+</li>
+<li>мир как-то можно смотреть 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> версия 0.2 </h3>
+<div class="outline-text-3" id="text-1-2">
+
+<ol>
+<li>в мир вводится понятие "кадра" или "тика" 
+</li>
+<li>жидкости текут 
+</li>
+<li>мир генерируется более-менее интересно (но без городов, русел рек и т.п., просто зайчатки геологии) 
+</li>
+<li>парсер равок, по возможности всякие параметры берутся через него 
+</li>
+<li>редактор карт (без него сложно отлаживать жидкости) 
+</li>
+<li>первые структуры (стены) 
+</li>
+<li>Начинается генератор цивилизаций и городов 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> версия 0.3 </h3>
+<div class="outline-text-3" id="text-1-3">
+
+<ol>
+<li>хороший, годный парсер равок, всё берётся из него, включая вязкость жидкостей 
+</li>
+<li>первые существа 
+</li>
+<li>генератор мира окончательно становится процедурным, отпадает нужда хранить все тайлы. Мир становится большим. 
+</li>
+<li>загружается и играется только часть мира 
+</li>
+<li>Жидкости хорошо текут, работают сообщающиеся сосуды. Как-то надо решить вопрос с реками, текущими за пределы загруженной области. Можно как в df, можно (если получится) более честно обсчитывать ток рек (сделал плотину @ город в ста верстах ниже по течению вымер от жажды). 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> версия 0.4 </h3>
+<div class="outline-text-3" id="text-1-4">
+
+<ol>
+<li>Первые прототипы клиентского кода. Ещё без сети, но уже со строгой изоляцией от потрохов игровой логики, с ограниченной видимостью и, конечно, с возможностью управления существом (пока только одним). Графон - какой получится: текст, от стоунсенса, от майнтеста, от Quake 4. Лишь бы было. 
+</li>
+<li>ИИ существ. Лучше начать со случая "охотник-жертва". 
+</li>
+<li>Ведётся работа над генератором мира (геология, реки, селения), на совместимость сейвов кладётся болт. 
+</li>
+<li>есть какие-то существа, которых можно осмысленно поселить в города. 
+</li>
+<li>органы существ, ранения 
+</li>
+<li>вводим разные материалы 
+</li>
+<li>вводим понятие температуры, эффекты горения, плавления и т.д. 
+</li>
+<li>примитивная боёвка 
+</li>
+<li>мультитайловые структуры (типа мастерских) 
+</li>
+<li>структуры, способные менять прозрачность и проходимость (иными словами, ворота и подъёмные мосты). Корректная работа поля зрения игрока и течения жидкостей. 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> версия 0.5 </h3>
+<div class="outline-text-3" id="text-1-5">
+
+<ol>
+<li>Сетевая подсистема, первые попытки игры &gt;1 игрока в одном мире 
+</li>
+<li>Предметы. Одежда (надета), инструменты (в руках и прочих подходящих конечностях), хлам на земле. 
+</li>
+<li>Создаётся "дварфийский хайвмайнд", игрок может отдавать какие-то приказы, а входящие в хайвмайнд существа будут их выполнять, их ИИ должен быть соответствующим образом доработан. 
+</li>
+<li>Если заглянуть в город - кто-то там должен суетиться и как-то изображать жизнь. 
+</li>
+<li>система органов поддерживает создание форготни и НЁХ и вся эта херня логично живёт и убивается. 
+</li>
+<li>Улучшения по всем направлениям: генератор мира, ИИ, физика, биология, больше равок. 
+</li>
+<li>развитая боёвка 
+</li>
+<li>баллистика (не только ядра, но и отрубленные конечности) 
+</li>
+<li>обрушения конструкций. Сопромат, все дела. 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> версия 0.6 </h3>
+<div class="outline-text-3" id="text-1-6">
+
+<ol>
+<li>игра в режиме крепости по сети (не обязательно должно быть интересно и комфортно, но должно технически работать). 
+</li>
+<li>Ещё больше всяких ништяков. 
+</li>
+<li>боёвка не хуже, чем в df 
+</li>
+<li>Улучшения по всем направлениям 
+</li>
+<li>Генератор цивилизаций порождает всяких королей-личей, Подземелья С Эпичными Названиями, легенды и биографии. 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> версия 1.0 </h3>
+<div class="outline-text-3" id="text-1-7">
+
+<ol>
+<li>Сингловый режим крепости дворфов полноценен и играбелен, хотя и не такой насыщенный всякой всячиной, как в df. Есть нобли, армия, дворфы жрут, пьют, радуются, злятся, работают, рожают детей и умирают. 
+</li>
+<li>Существа знают легенды и помнят важные события, свидетелями которых были. 
+</li>
+<li>Мультиплеер в статусе "экспериментально". Если удастся решить геймплейные дилеммы типа "Вася хочет поставить на паузу, а Петя - промотать пару сезонов", то хорошо. Иначе - без паузы или с глобальной паузой. 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> версия 1.1 </h3>
+<div class="outline-text-3" id="text-1-8">
+
+<ol>
+<li>больше фич 
+</li>
+<li>Мультиплеер готов и рекомендован к использованию. 
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> версия 1.2 </h3>
+<div class="outline-text-3" id="text-1-9">
+
+<ol>
+<li>Нью-васюки становятся мировой шахматной столицей, открывается международный аэропорт.
+</li>
+</ol>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Проект разработки дизайн-документа </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Название проекта </h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>undivver - hope, future plan, strategy
+arau - huge, gigantic
+xoth - knowledge
+</p></div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Требования </h2>
+<div class="outline-text-2" id="text-3">
+
+<p>Здесь описаны основные решения, которые в процессе разработки не
+подлежат изменению.
+</p>
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Требования к конечному продукту </h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+</div>
+
+<div id="outline-container-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Приоритетные </h4>
+<div class="outline-text-4" id="text-3-1-1">
+
+<ol>
+<li>Однопользовательская фэнтези-стратегия, по совместительству
+   песочница и симулятор бога.
+</li>
+<li>Мир генерируется случайным образом, кроме того объекты, персонажи,
+   свойства и материалы, тоже могут создаваться случайным образом
+   (учитывая ряд ограничений конечно же). Объемный мир.
+</li>
+<li>df-подобная по части безумно высокой детализации игрового мира.
+</li>
+<li>Практически полное отсутствие игровой документации. В справке будут
+   описаны лишь азы по взаимодействию с интерфейсом.
+</li>
+<li>Сложная система крафта/производства.
+</li>
+<li>Противник в виде других популяций, которые регулярно организуют
+   осады и рейды.
+</li>
+<li>Сложная экономическая составляющая (корованы и так далее).
+</li>
+<li>Сложная социальная составляющая популяция (отношения между особями,
+   эмоции, психологическое состояние).
+</li>
+<li>Сложная система существ. Никаких хитпоинтов - максимально
+   реалистичная боевая система и система повреждений.
+</li>
+<li>Общие концепции рогаликов.
+</li>
+<li>Политическая составляющая (отношения между цивилизациями, послы,
+    заговоры, нобли, мандаты).
+</li>
+<li>Открытые исходники и открытые игровые ресурсы. MIT/BSD лицензии или
+     GPLv3 - пока не ясно.
+</li>
+<li>Желательно избежать использования магии.
+</li>
+<li>Наличие крупных (на порядки крупнее обычного юнита) персонажей.
+</li>
+<li>Наличие встроенной lisp-среды.
+</li>
+<li>Наличие системы вызова команд в духе emacs (M-x &lt;command&gt; - с автодополнением). 
+</li>
+</ol>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-1-2" class="outline-4">
+<h4 id="sec-3-1-2"><span class="section-number-4">3.1.2</span> Менее приоритетные </h4>
+<div class="outline-text-4" id="text-3-1-2">
+
+<ol>
+<li>Ведутся записи исторических событий, многие вещи очень детально
+   логгируются, например битвы.
+</li>
+<li>Мультиязычность (Русский и Английский минимум). Должна быть гибкая
+   система добавления локализаций (сразу стоит отметить, что
+   предполагается два вида локализаций: простая и сложная. Для каждой
+   локализации в необходимом месте возвращается предварительно
+   заданная строка текста согласно переданному в функцию коду
+   локализации (ru, eng, de). Сложная - движок для морфологического анализа/синтеза,
+   правильная генерация числительных и другие моменты, связанные с
+   естественными языками. Понадобяться part of speech tagger'ы и
+   другие подходы для генерации текста на естественном языке.).
+</li>
+<li>Химическая подсистема (возможность вступления каких-то объектов и
+   материалов в химические реакции и получение дополнительных
+   свойств(= долговременные) или эффектов(= кратковременные).
+</li>
+</ol>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Требования к процессу разработки </h3>
+<div class="outline-text-3" id="text-3-2">
+
+<ol>
+<li>Высокая модульность. Необходима слабая связанность модулей в
+   системе, чтобы можно было безболезненно заменять их, лишь соблюдая
+   интерфейс (API).
+</li>
+<li>Следование идеи MVC и другим паттернам, отделяющим данные, логику и интерфейс.
+</li>
+<li>Code convention required.
+</li>
+<li>Максимально возможное покрытие юнит-тестами.
+</li>
+</ol>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Основные подсистемы </h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Игра (игровая подсистема) </h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+</div>
+
+<div id="outline-container-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1"><span class="section-number-4">4.1.1</span> Требования </h4>
+<div class="outline-text-4" id="text-4-1-1">
+
+<ul>
+<li>простое меню, минимум переходов
+</li>
+<li>возможность загрузки, выгрузки миров и игр.
+</li>
+<li>настройки генерации нового мира
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2"><span class="section-number-4">4.1.2</span> Usecase </h4>
+<div class="outline-text-4" id="text-4-1-2">
+
+
+
+
+<div class="figure">
+<p><img src="./img/plantuml-usecases-main-menu.png"  alt="./img/plantuml-usecases-main-menu.png" /></p>
+<p>Типичные варианты использования (главного меню).</p>
+</div>
+
+<p>
+Основные варианты использования:
+</p><ul>
+<li>continue game (продолжить игру) - по сути пустое состояние,
+  мнгновенный переход к выбору игры.
+</li>
+<li>choose game (выбор игры) - пользователю предоставляется список
+  существующих игр с какой-то дополнительной информацией: название
+  мира, последнее время пребывания в игре, суммарное время проведенное
+  в игре, название игры (крепости/экспедиции), имя командира
+  (экспедиции), текущая дата, размер популяции и какие-то другие общие
+  показатели.
+</li>
+<li>new game (новая игра) - тут пользователь решает: создать новый мир
+  или выбрать уже существующий.
+</li>
+<li>world generation (генерация нового мира) - зерно мира (seed), море настроек,
+  переключателей, параметров, позволяющих создать максимально
+  неповторимый мир. После того как пользователя устроят все параметры
+  и он выберет пункт "генерировать"("generate") и этот весьма долгий
+  процесс завершится, тогда пользователь перейдет к меню "new game".
+</li>
+<li>choose existing world (выбор мира) - пользователю предоставляется список
+  существующих миров с какой-то дополнительной информацией: название
+  мира, текущая дата и другие.
+</li>
+<li>export game (экспорт игры) - пользователь выбирает игру из списка и
+  все состояние игры и мира записывается в указанный файл.
+</li>
+<li>export world (экспорт мира) - аналогично экспорту игры.
+</li>
+<li>import game (импорт игры) - пользователь выбирает файл из которого
+  будет считано все состояние игры и мира. 
+</li>
+<li>import world (импорт мира) - аналогично импорту игры.
+</li>
+<li>options (настройки) - очевидно. Пока не детализирую.
+</li>
+</ul>
+
+
+
+
+
+
+<div class="figure">
+<p><img src="./img/graphviz-state-main-menu.png"  alt="./img/graphviz-state-main-menu.png" /></p>
+<p>Базовая диаграмма состояний игры (graphviz).</p>
+</div>
+
+<p>
+Основные состояния (состояния выделены <b>жирным</b>, пункты меню выделены
+<i>курсивом</i>, стрелки "-&gt;" показывают в какое состояние переходит игра по
+выбранному пункту меню):
+</p><ul>
+<li><b>Start</b> -&gt; <b>Main menu</b>
+</li>
+<li><b>Main menu</b> - главное меню. Содержит следующие пункты:
+<ul>
+<li><i>новая игра</i>      -&gt; <b>New game</b>
+</li>
+<li><i>продолжить игру</i> -&gt; <b>List of games</b>
+</li>
+<li><i>настройки</i>       -&gt; <b>Options</b>
+</li>
+<li><i>выход</i>           -&gt; <b>End</b>
+</li>
+<li><i>об авторах</i>      -&gt; <b>Credits</b>
+</li>
+</ul>
+
+</li>
+<li><b>In-game menu</b> - меню, которое доступно во время игры (в состоянии
+  <b>Game loop</b>). Тут могут быть какие-то настройки интерфейса, биндинга
+  клавиш и другое. Содержит следующие пункты меню:
+<ul>
+<li><i>настройки интерфейса</i>
+</li>
+<li><i>настройки клавиш</i>
+</li>
+<li><i>вернуться в игру</i>                 -&gt; <b>Game loop</b>
+</li>
+<li><i>сохранить и выйти в главное меню</i> -&gt; <b>Main menu</b>
+</li>
+</ul>
+
+</li>
+<li><b>New game</b> - создание новой игры. Тут пользователь выбирает из
+  следующий пунктов меню:
+<ul>
+<li><i>создать новый мир</i>        -&gt; <b>World generator</b>
+</li>
+<li><i>список миров</i>             -&gt; <b>List of worlds</b>
+</li>
+<li><i>вернуться в главное меню</i> -&gt; <b>Main menu</b>
+</li>
+</ul>
+
+</li>
+<li><b>List of worlds</b> - выбор мира из списка существующих. Содержит
+  следующие пункты меню:
+<ul>
+<li><i>снарядить экспедицию и выбрать место высадки\embark</i> -&gt; <b>Embark</b>
+</li>
+<li><i>экспортировать мир</i>                                  -&gt; <b>Export world</b>
+</li>
+<li><i>импортировать мир</i>                                   -&gt; <b>Import world</b>
+</li>
+<li><i>вернуться в меню новой игры</i>                         -&gt; <b>New game</b>
+</li>
+</ul>
+
+</li>
+<li><b>World generator</b> - генератор мира. Содержит тучу настроек и
+  заветную кнопку/пункт меню "создать"/"generate".
+<ul>
+<li><i>генерировать</i>                -&gt; <b>List of worlds</b>
+</li>
+<li><i>вернуться в меню новой игры</i> -&gt; <b>New game</b>
+</li>
+</ul>
+
+</li>
+<li><b>Embark</b> - тут задаются параметры начала экспедиции. Содержит
+  следующие пункты меню:
+<ul>
+<li><i>начать игру</i>              -&gt; <b>Game loop</b>
+</li>
+<li><i>вернуться к списку миров</i> -&gt; <b>List of worlds</b>
+</li>
+</ul>
+
+</li>
+<li><b>List of games</b> - продолжить существующую сессию игры (выбор из
+  списка). Содержит следующие пункты меню:
+<ul>
+<li><i>продолжить игру</i>          -&gt; <b>Game loop</b>
+</li>
+<li><i>экспортировать игру</i>      -&gt; <b>Export game</b>
+</li>
+<li><i>импортировать игру</i>       -&gt; <b>Import game</b>
+</li>
+<li><i>вернуться в главное меню</i> -&gt; <b>Main menu</b>
+</li>
+</ul>
+
+</li>
+<li><b>Options</b> - настройки. Содержит следующие пункты:
+<ul>
+<li><i>вернуться в главное меню</i> -&gt; <b>Main menu</b>
+</li>
+</ul>
+
+</li>
+<li><b>Game loop</b> - самое главное состояние. Главный игровой
+  цикл. Содержит следующие пункты меню:
+<ul>
+<li><i>игровое меню</i>     -&gt; <b>In-game menu</b>
+</li>
+<li><i>вернуться в игру</i> -&gt; <b>Game loop</b>
+</li>
+</ul>
+
+</li>
+<li><b>Credits</b> - об авторах и другие коментарии. Содержит следующие
+  пункты:
+<ul>
+<li><i>вернуться в главное меню</i> -&gt; <b>Main menu</b>
+</li>
+</ul>
+
+</li>
+<li><b>Export game</b> - тут находятся настройки экспорта. Содержит следующие
+  пункты:
+<ul>
+<li><i>экспортировать</i>
+</li>
+<li><i>вернуться к списку игр</i> -&gt; <b>List of games</b>
+</li>
+</ul>
+
+</li>
+<li><b>Import game</b> - Содержит следующие
+  пункты:
+<ul>
+<li><i>импортировать</i>
+</li>
+<li><i>вернуться к списку игр</i> -&gt; <b>List of games</b>
+</li>
+</ul>
+
+</li>
+<li><b>Export world</b> - Содержит следующие
+  пункты:
+<ul>
+<li><i>экспортировать</i>
+</li>
+<li><i>вернуться к списку миров</i> -&gt; <b>List of worlds</b>
+</li>
+</ul>
+
+</li>
+<li><b>Import world</b> - Содержит следующие
+  пункты:
+<ul>
+<li><i>импортировать</i>
+</li>
+<li><i>вернуться к списку миров</i> -&gt; <b>List of worlds</b>
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-1-3" class="outline-4">
+<h4 id="sec-4-1-3"><span class="section-number-4">4.1.3</span> Главный цикл </h4>
+<div class="outline-text-4" id="text-4-1-3">
+
+<p><a href="http://habrahabr.ru/blogs/gdev/136878/">http://habrahabr.ru/blogs/gdev/136878/</a>
+</p></div>
+
+</div>
+
+<div id="outline-container-4-1-4" class="outline-4">
+<h4 id="sec-4-1-4"><span class="section-number-4">4.1.4</span> Общие рекомендации по проектированию - <a href="http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html">http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html</a> </h4>
+<div class="outline-text-4" id="text-4-1-4">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Интерфейс </h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+</div>
+
+<div id="outline-container-4-2-1" class="outline-4">
+<h4 id="sec-4-2-1"><span class="section-number-4">4.2.1</span> SDL / CL-TCOD </h4>
+<div class="outline-text-4" id="text-4-2-1">
+
+<p><a href="http://doryen.eptalys.net/libtcod/">http://doryen.eptalys.net/libtcod/</a>
+<a href="http://bitbucket.org/eeeickythump/cl-tcod/">http://bitbucket.org/eeeickythump/cl-tcod/</a>
+howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://doryen.eptalys.net/forum/index.php?topic=383.0</a>
+</p></div>
+
+</div>
+
+<div id="outline-container-4-2-2" class="outline-4">
+<h4 id="sec-4-2-2"><span class="section-number-4">4.2.2</span> Текстовый / Тайловый </h4>
+<div class="outline-text-4" id="text-4-2-2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Мир </h3>
+<div class="outline-text-3" id="text-4-3">
+
+
+</div>
+
+<div id="outline-container-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1"><span class="section-number-4">4.3.1</span> Полезные статьи </h4>
+<div class="outline-text-4" id="text-4-3-1">
+
+<p><a href="http://doryen.eptalys.net/articles/">http://doryen.eptalys.net/articles/</a>
+</p></div>
+
+</div>
+
+<div id="outline-container-4-3-2" class="outline-4">
+<h4 id="sec-4-3-2"><span class="section-number-4">4.3.2</span> Карта высот - <a href="http://www.youtube.com/watch?v=lfOg4KnLgjs">http://www.youtube.com/watch?v=lfOg4KnLgjs</a> </h4>
+<div class="outline-text-4" id="text-4-3-2">
+
+<ul>
+<li id="sec-4-3-2-1">Алгоритмы генерации шума (noise) <br/>
+<ul>
+<li id="sec-4-3-2-1-1">perlinx <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-1-2">simplex <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-1-3">wavelet <br/>
+Полезные ссылки:
+<ul>
+<li><a href="http://www.nolithius.com/game-development/world-generation-breakdown">http://www.nolithius.com/game-development/world-generation-breakdown</a>
+</li>
+<li><a href="http://www.dungeonleague.com/page/3/">http://www.dungeonleague.com/page/3/</a>
+</li>
+<li><a href="http://blog.wonderville.ru/category/math-modeling/procedural-texturing/generators/generators-noise/">http://blog.wonderville.ru/category/math-modeling/procedural-texturing/generators/generators-noise/</a>
+</li>
+<li><a href="http://www.gameprogrammer.com/fractal.html#diamondо">http://www.gameprogrammer.com/fractal.html#diamondо</a>
+</li>
+</ul>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-2">Diamond square - <a href="http://habrahabr.ru/blogs/algorithm/111538/">http://habrahabr.ru/blogs/algorithm/111538/</a> <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-3">Полезные ссылки <br/>
+<ul>
+<li><a href="http://simblob.blogspot.com/">http://simblob.blogspot.com/</a>
+</li>
+<li><a href="http://www-cs-students.stanford.edu/~amitp/game-programming/">http://www-cs-students.stanford.edu/~amitp/game-programming/</a>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-4">Эррозия <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-5">Реки <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-6">Горы <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-7">BSP generation - <a href="http://doryen.eptalys.net/articles/bsp-dungeon-generation/">http://doryen.eptalys.net/articles/bsp-dungeon-generation/</a> <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-8">Pathfinding <br/>
+<ul>
+<li id="sec-4-3-2-8-1">A* <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-8-2">Dijkstra - <a href="http://habrahabr.ru/blogs/algorithm/111361/">http://habrahabr.ru/blogs/algorithm/111361/</a> <br/>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-9">Field of View <br/>
+<ul>
+<li id="sec-4-3-2-9-1">basic raycasting <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-9-2">recursive shadowcasting <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-9-3">diamond raycasting <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-9-4">precise permissive fov <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-2-9-5">restrictive shadowcasting a.k.a. MRPAS <br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-4-3-3" class="outline-4">
+<h4 id="sec-4-3-3"><span class="section-number-4">4.3.3</span> Биомы и климат </h4>
+<div class="outline-text-4" id="text-4-3-3">
+
+<ul>
+<li id="sec-4-3-3-1">Minecraft <br/>
+<div class="figure">
+<p><img src="./img/BiomesGraph.png"  alt="./img/BiomesGraph.png" /></p>
+<p>График температуры/осадков в зависимости от биома.</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption>Примерная таблица биомов</caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Название</th><th scope="col" class="left">Оказываемые эффекты</th><th scope="col" class="left">Коментарий</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">Джунгли</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Болото</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Сезонный лес</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Лес</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Саванна</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Тайга</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Пустыня</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Равнина</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Тундра</td><td class="left"></td><td class="left"></td></tr>
+<tr><td class="left">Горы</td><td class="left"></td><td class="left"></td></tr>
+</tbody>
+</table>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-2">DF <br/>
+<ul>
+<li id="sec-4-3-3-2-1">Засушливые (Аридные) <br/>
+<ol>
+<li>Arctic Ocean (Холодный океан)
+</li>
+<li>Badlands (Бесплодные земли)
+</li>
+<li>Glacier (Ледник)
+</li>
+<li>Mountain (Горы)
+</li>
+<li>Rocky wasteland (Каменистая пустошь)
+</li>
+<li>Sand desert (Песчанная пустыня)
+</li>
+<li>Tundra (Тундра)
+</li>
+<li>Taiga (Тайга)
+</li>
+</ol>
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-2-2">Умеренные <br/>
+<ol>
+<li>Temperate Broadleaf forest (Умеренный лиственный лес)
+</li>
+<li>Temperate Conifer forest (Умеренный хвойный лес)
+</li>
+<li>Temperate Grassland (Умеренные луга)
+</li>
+<li>Temperate Freshwater lake (Умеренное пресноводное озеро)
+</li>
+<li>Temperate Freshwater marsh (Умеренное пресноводное болото)
+</li>
+<li>Temperate Freshwater swamp (Умеренная пресноводная топь)
+</li>
+<li>Temperate Ocean (Умеренный океан)
+</li>
+<li>Temperate Saltwater marsh (Умеренное солёное болото)
+</li>
+<li>Temperate Saltwater swamp (Умеренная солёная топь)
+</li>
+<li>Temperate Savanna (Умеренная саванна)
+</li>
+<li>Temperate Shrubland (Умеренное мелколесье)
+</li>
+</ol>
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-2-3">Тропические <br/>
+<ol>
+<li>Tropical Dry Broadleaf forest (Тропический сухой лиственный лес)
+</li>
+<li>Tropical Wet Broadleaf forest (Тропический сырой лиственный лес)
+</li>
+<li>Tropical Conifer forest (Тропический хвойный лес)
+</li>
+<li>Tropical Freshwater marsh (Тропическая пресноводная топь)
+</li>
+<li>Tropical Grassland (Тропические луга)
+</li>
+<li>Tropical Ocean (Тропический океан)
+</li>
+<li>Tropical Savanna (Тропическая саванна)
+</li>
+<li>Tropical Shrubland (Тропическое мелколесье)
+</li>
+</ol>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-3">Terraria <br/>
+<ol>
+<li>Леса - Для посадки деревьев необходимы жёлуди, которые падают с
+   деревьев, когда вы их рубите. Замкнутый круг, не так ли? Также,
+   жёлуди можно купить у Дриады. В лесной территории можно найти
+   подземные пещеры, размеры которых не больше 100 футов в глубину
+</li>
+<li>Пустыни - На самом деле, в пустынях нет ничего интересного, ведь
+   они совершенно бесплодны.
+</li>
+<li>Океан - На обоих краях каждой карты находятся песчаные пляжи, за
+   которыми расположены огромные массы воды. Чем дальше идёт игрок,
+   тем глубже становится дно. Исследования океана без умения плавать —
+   практически самоубийство, так как можно просто напросто утонуть.
+</li>
+<li>Подземелье - Подземелье состоит из трёх слоёв (уровней): слой
+   грязи, скалистый слой, каменный слой.
+</li>
+<li>Парящие острова - массы земли, расположенные в небе (<b>magic</b>?!?).
+</li>
+<li>Искажение — биом, отличительной особенностью которого является
+   способность к распространению. В большинстве случаев, в мире есть
+   2-3 Искажения. Искажение спаунит (порождает) высокоуровневых
+   монстров независимо от времени суток, его следует избегать в начале
+   игры. Тёмные блоки (покрытые Искажением) можно очищать ударом
+   оружия или с помощью очистительного порошка. Искажение
+   распространяется только по блокам травы и грязи, так что остановить
+   его можно путём размещения какого-либо блока (кроме грязи) или
+   посадкой подсолнечника. (Подсолнечники можно купить у Дриады или же
+   просто найти) Игрок может найти Семена Искажения, сажая которые вы
+   создадите собственное Искажение (<b>magic</b>?!?).
+</li>
+<li>Метеорит - послее того, как вы разобьёте Теневую сферу, в планету
+   может врезаться метеорит. (Метеорит может прилететь, даже если вы
+   ничего не разбивали. Вот так.) Метеорит — это маленький по площади,
+   но довольно опасный для низкоуровневых игроков биом. Он состоит из
+   метеоритной руды, высокоуровневого материала, который наносит урон
+   при контакте, если у игрока нет Обсидианового черепа.
+</li>
+<li>Пещерные джунгли - Подземные джунгли во многом схожи с обычными
+   подземельями, например, в них тоже присутствуют тупики. Но есть и
+   различия: подземные джунгли покрыты растениями (неожиданно?), в них
+   можно найти уникальные предметы, которые находятся в Храмах Джунгей
+   (Jungle Shrines) — небольших зданиях, сделанных из золотых
+   блоков. Найти джунгли не составить труда — просто копайте (хотя в
+   больших мирах придётся покапать намного дольше, чем в средних и
+   маленьких). Очень часто Пещерные Джунгли встречаются рядом с
+   Искажением.
+</li>
+<li>Данж — это огромное здание, находящиеся недалеко от "края" мира,
+   охватывающее множество слоёв вглубь. Данжы заполнены сундуками с
+   сокровищами и уникальными предметами (например: водяная свеча,
+   книги, цепной фонарь, и т.д.) В маленьких и средних мирах
+   Подземелья могут "разрезать" Ад на несколько частей, тем самым
+   обеспечивая удобный к нему доступ.
+</li>
+<li>Преисподняя — это биом, который находится в "адском" уровне (ниже,
+    чем уровень моря, приблизительно, на 4500 футов). Вы доберётесь до
+    него после того, как прокопаетесь через третий слой Подземелья
+    (пещеры) — каменный слой. Преисподняя отличается от подземелья
+    иным фоном, сильными врагами и огромным количеством лавы, лавы и
+    ещё раз лавы. Сундуки в Преисподней содержат более редкие
+    артефакты, чем все другие, которые встречаются вам в мире.
+</li>
+</ol>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-4">Классификации биомов <br/>
+Climate is a major factor determining the distribution of terrestrial
+biomes. Among the important climatic factors are:
+<ul>
+<li>Latitude: Arctic, boreal, temperate, subtropical, tropical
+</li>
+<li>Humidity: humid, semihumid, semiarid, and arid
+</li>
+</ul>
+
+<p>seasonal variation: Rainfall may be distributed evenly throughout the
+year or be marked by seasonal variations.  dry summer, wet winter:
+Most regions of the earth receive most of their rainfall during the
+summer months; Mediterranean climate regions receive their rainfall
+during the winter months.
+</p><ul>
+<li>Elevation: Increasing elevation causes a distribution of habitat
+  types similar to that of increasing latitude.
+
+<p>
+  <a href="http://en.wikipedia.org/wiki/Biome#Biome_classification_schemes">http://en.wikipedia.org/wiki/Biome#Biome_classification_schemes</a>
+</p></li>
+</ul>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-5">Климат <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-6">Температура <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-7">Погода <br/>
+<ul>
+<li id="sec-4-3-3-7-1">Дождь <br/>
+</li>
+</ul>
+<ul>
+<li id="sec-4-3-3-7-2">Снег <br/>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Время </h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+</div>
+
+<div id="outline-container-4-4-1" class="outline-4">
+<h4 id="sec-4-4-1"><span class="section-number-4">4.4.1</span> Времена года (связано с биомами и климатом) </h4>
+<div class="outline-text-4" id="text-4-4-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-4-2" class="outline-4">
+<h4 id="sec-4-4-2"><span class="section-number-4">4.4.2</span> День / ночь. </h4>
+<div class="outline-text-4" id="text-4-4-2">
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Объекты </h3>
+<div class="outline-text-3" id="text-4-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> Строительство </h3>
+<div class="outline-text-3" id="text-4-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> Раскопки </h3>
+<div class="outline-text-3" id="text-4-7">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> Существа </h3>
+<div class="outline-text-3" id="text-4-8">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> Механизмы и аппараты </h3>
+<div class="outline-text-3" id="text-4-9">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10" class="outline-3">
+<h3 id="sec-4-10"><span class="section-number-3">4.10</span> Вещества / материалы </h3>
+<div class="outline-text-3" id="text-4-10">
+
+
+</div>
+
+<div id="outline-container-4-10-1" class="outline-4">
+<h4 id="sec-4-10-1"><span class="section-number-4">4.10.1</span> Жидкости </h4>
+<div class="outline-text-4" id="text-4-10-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10-2" class="outline-4">
+<h4 id="sec-4-10-2"><span class="section-number-4">4.10.2</span> Газы </h4>
+<div class="outline-text-4" id="text-4-10-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10-3" class="outline-4">
+<h4 id="sec-4-10-3"><span class="section-number-4">4.10.3</span> Метал </h4>
+<div class="outline-text-4" id="text-4-10-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10-4" class="outline-4">
+<h4 id="sec-4-10-4"><span class="section-number-4">4.10.4</span> Ювелирные изделия </h4>
+<div class="outline-text-4" id="text-4-10-4">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10-5" class="outline-4">
+<h4 id="sec-4-10-5"><span class="section-number-4">4.10.5</span> Минералы </h4>
+<div class="outline-text-4" id="text-4-10-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10-6" class="outline-4">
+<h4 id="sec-4-10-6"><span class="section-number-4">4.10.6</span> Драгоценные камни </h4>
+<div class="outline-text-4" id="text-4-10-6">
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4-11" class="outline-3">
+<h3 id="sec-4-11"><span class="section-number-3">4.11</span> Цивилизации, города, поселки - генерация </h3>
+<div class="outline-text-3" id="text-4-11">
+
+<p>Много инфы в этом блоге - <a href="http://www.introversion.co.uk/blog/archive.php&amp;ei=cwUCT7bBAoSa-gbQ5vSiAw&amp;sig2=LaklHJjBEOdiZ54EiU5Neg&amp;ct=b">http://www.introversion.co.uk/blog/archive.php&amp;ei=cwUCT7bBAoSa-gbQ5vSiAw&amp;sig2=LaklHJjBEOdiZ54EiU5Neg&amp;ct=b</a>
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Полезная инфа </h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 40 механик для социальных игр - <a href="http://habrahabr.ru/blogs/social_networks/114725/">http://habrahabr.ru/blogs/social_networks/114725/</a> </h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>Разработчик игр Раф Костер (Raph Koster) составил всеобъемлющий список
+базовых правил, на которых основаны социальные отношения в играх
+(мультиплеер, параллельная игра и т.д.). Эти правила для разработчиков
+игры заменяют азбуку. Во многом они пересекаются с принципами игровой
+механики, которые уже обсуждались на Хабре.
+</p>
+<p>
+Раф Костер приобрёл известность как создатель дизайна Ultima Online и
+креативный директор проекта Star Wars Galaxies, после чего основал
+собственную студию.
+</p>
+<p>
+Данный список является кратким конспектом презентации Костера (190
+слайдов).
+</p>
+<ol>
+<li>Помощь. Простейшая форма мультиплеера — это обычные советы и
+   помощь. Насколько хороши ваши каналы коммуникации? Помощь — это
+   строительный материал всего социального геймплея.
+</li>
+<li>Статус. Квантификация достижений. Сохранение их в базе данных.
+</li>
+<li>Гонки. Первый пользователь, который достигает цели, побеждает. На
+   удивление редко встречается. Почему никто не использует гонку для
+   завершения уровня? Вы можете использовать это в сетевых
+   настройках. Социальные игры не тяготеют к гонкам.
+</li>
+<li>Таблицы лидеров. Все соревнуются асинхронно, параллельно с
+   сохранением истории. Мы видим это в барах.
+</li>
+<li>Турниры. Разбиение (bracketing) пользователей на группы. Социальные
+   игры склоняются к использованию брекетинга для простого PvP, тогда
+   как он достоин большего.
+</li>
+<li>Сбор цветов. Вы конкурируете за ресурсы, на постоянно появляются
+   новые.
+</li>
+<li>Съедение точек. Я съел, ты нет. Потребление ресурсов с нулевой
+</li>
+</ol>
+
+<p>суммой.  8: Перетягивание каната (tug-of-war). Я могу взять твои вещи,
+а ты можешь мои. Победитель и проигравший.
+</p><ol>
+<li>Гандикаппинг. Искусственное уравнивание статуса для обеспечения
+   более равного соревнования.
+</li>
+<li>Секреты. В теории игр — недостаточная информация. Знание является
+    ценностью. Перетягивание каната. Раздачи карт.
+</li>
+<li>Последний герой. Мультиплеер до смерти, пока не останется
+    победитель.
+</li>
+<li>Ставки. Промежуточный статус. Твоя ставка, ты забираешь вещи
+    соперника (деньги) и у кого в итоге остаётся вещь, выигрывает. Где
+    тихие аукционы в социальных играх?
+</li>
+<li>Ложь. Обман и блеф. Обман работает только против другого игрока,
+    не компьютера. Дезинформация становится игровым приёмом, который
+    даёт преимущество.
+</li>
+<li>Ставки третьей стороны. Здесь конкуренты участвуют в аукционе за
+    ресурсы третьей стороны.
+</li>
+<li>Дилемма заключённого. У партнёров нет полной информации, но они в
+    одной команде. Если один сдаётся, оба в проигрыше. Если они
+    держатся вместе, то добиваются успеха. Ты не знаешь, будет ли
+    напарник держаться.
+</li>
+<li>Кригшпиль. Военная стратегия в виде настольной игры, впервые была
+    использована в 1812 году в Прусской армии: Dungeonmaster,
+    Gamemaster. Судья следит за правилами, Gamesmaster направляет
+    действие, игру. Сейчас мы не делаем слишком много такого
+    управления в социальных играх, но могли бы. В основном действием
+    игры управляют судьи, хотя эту роль можно переложить на
+    гейммастера.
+</li>
+<li>Роли. Специализация ведёт к появлению различных игр внутри одной
+    группы. Чрезвычайно редко используется в современных играх, редкое
+    исключение — Treasure Isle.
+</li>
+<li>Объединение в группы и смена ролей внутри групп. Как в «Мафии»
+    один из партнёров неожиданно может стать хищником.
+</li>
+<li>Ритуалы. Церемонии играют важную роль в человеческой культуре:
+    рождение, свадьба, смерть, повышение уровня внутри игры (выпуск из
+    школы, получение диплома, получение работы), календарные
+    праздники, религиозные праздники.
+</li>
+<li>Подарки. Тесно связаны с предыдущим пунктом, встречаются
+    практически во время каждого ритуала. Представляют собой передачу
+    вещей от одного игрока к другому для повышения его статуса.
+</li>
+<li>Взаимность. Игроки отправляют подарок, который им нравится, потому
+    что ожидают его возврата (где кнопка «Вернуть подарок»?).
+</li>
+<li>Наставники. Обучение человека или передача ему важных знаний. Он
+    получает знания, вы получаете социальный статус как
+    наставник. Укрепляются социальные связи в группе.
+</li>
+<li>Самовыражение. Демонстрация своего статуса через редкие
+    аксессуары.
+</li>
+<li>Изгнание из группы через отказ в общих ресурсах.
+</li>
+<li>Доверие. Степень доверия в зависимости от положения нода в
+    социальном графе или кластере. Прямая связь даёт максимальное
+    доверие. Если один человек максимально доверяет двум людям в
+    кластере, но те не связаны друг с другом напрямую, то между ними
+    доверие существует, но гораздо слабее.
+</li>
+<li>Гильдии, кланы. Чрезвычайно эффективная структура, объединяющая
+    несколько социальных кластеров. В данный момент в социальных играх
+    слабо используются структуры из сотен и тысяч участников.
+</li>
+<li>Эксклюзивность. Исходя из сегрегации и геноцида известно, что
+    людям свойственно выделять внутри сообщества элитные группы,
+    обладающие эксклюзивным доступом к избранным вещам. VIP-клубы.
+</li>
+<li>Гильдия против гильдии. Мы знаем, как большие родственные группы
+    любят уничтожать друг друга. Соревнование. Сражение. Конкуренция.
+</li>
+<li>Торговля. Формализация выгодных отношений между слишком удалёнными
+    узлами в сети.
+</li>
+<li>Выборы. Политика — величайшая многопользовательская игра,
+    изобретённая человечеством.
+</li>
+<li>Репутация, влияние и почёт. Нужно разработать микроплатежи для
+    социальной валюты, чтобы отправитель мог поставить +1, а
+    получатель накапливать эти статусы.
+</li>
+<li>Общественные вещи. Это похоже на дилемму заключённого, но только в
+    отношении к многим пользователям. Большинство общественных
+    ресурсов не уникальны и могут потребляться всеми (например, чистый
+    воздух).
+</li>
+<li>Трагедия общин, если ресурсы уникальны и могут быть присвоены
+    кем-то, тогда все остальные остаются в проигрыше.
+</li>
+<li>Коммьюнити. Ситуация, когда сами пользователи становятся фишками в
+    игре.
+</li>
+<li>Стратегические гильдии. Объединении в большие группы для решения
+    очень сложных загадок.
+</li>
+<li>Командная работа. Совместные усилия людей всегда больше, чем
+    работа тех же людей поодиночке.
+</li>
+<li>Арбитраж. Переходя к экономическим моделям игры, нужно допустить
+    существование арбитража, когда возникают неравномерные количества
+    товара в игре и существует способ оценки и обмена таким товаром.
+</li>
+<li>Каналы поставки. Каналы обмена товаров и торговых путей.
+</li>
+<li>Пользовательский контент. Хорошие инструменты для этого: форумы,
+    редакторы изображений, игровые карты, свадьбы и так далее.
+</li>
+<li>Грифинг. Виртуальная социопатия. Смена правил игры самими игроками
+    и появление новых игровых вселенных.
+</li>
+</ol>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Хаотичный список фич и идей </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Заговоры </h3>
+<div class="outline-text-3" id="text-6-1">
+
+<p>Недовольные жители могут объединиться и объявить забастовку, устроить
+заговор, заняться вредительством, распространять хоас и тантрум.
+</p></div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Дварфийский язык </h3>
+<div class="outline-text-3" id="text-6-2">
+
+<ul>
+<li><a href="http://www.stormnexus.org/Dwarven_Language">http://www.stormnexus.org/Dwarven_Language</a>
+</li>
+<li><a href="http://www.guildsite.com/dawi/language.htm">http://www.guildsite.com/dawi/language.htm</a>
+</li>
+<li><a href="http://www.fantasist.net/dwarven.shtml">http://www.fantasist.net/dwarven.shtml</a>
+</li>
+<li><a href="http://www.scribd.com/doc/17817661/dd-3rd-Edition-Dungeons-and-Dragons-Dwarven-Dictionary">http://www.scribd.com/doc/17817661/dd-3rd-Edition-Dungeons-and-Dragons-Dwarven-Dictionary</a>
+</li>
+<li><a href="http://www.angelfire.com/pro/demon_1/dwarven_to_common_dictionary.htm">http://www.angelfire.com/pro/demon_1/dwarven_to_common_dictionary.htm</a>
+</li>
+<li><a href="http://www.santharia.com/languages/thergerim/thergerim.htm">http://www.santharia.com/languages/thergerim/thergerim.htm</a>
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-01-29 12:58:27 MSK</p>
+<p class="author">Author: Urist McLisper</p>
+<p class="creator">Org version 7.7 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
