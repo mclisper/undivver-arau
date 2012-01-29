@@ -312,8 +312,389 @@ http://doryen.eptalys.net/articles/
 *** Карта высот - http://www.youtube.com/watch?v=lfOg4KnLgjs
 **** Алгоритмы генерации шума (noise)
 ***** TODO Perlin Noise ((частичный перевод - http://freespace.virgin.net/hugo.elias/models/m_perlin.htm)
+По существу, функция шума представляет собой генератор псевдослучайных чисел (ГПСЧ). Функция на вход получает целое число и возвращает случайное число на основе входного, причем возвращаемое значение зависит только от входного и всегда одинаково. То есть если вызывать эту функцию сколь угодно раз с одним и тем же параметром - она всегда будет возвращаеть одно и то же значение.
+
+#+CAPTION: Пример графика функции шума.
+[[./img/perlin/noise1.gif]]
+
+#+CAPTION: Гладкая интерполяция может помочь нам получить непрерывную функцию.
+[[./img/perlin/noise2.gif]]
+
+#+CAPTION: Длина волны (wavelength) - расстояние от одного пика до другого. Амплитуда (amplitude) - высота волны. Частота (frequency) = 1 / wavelength .
+[[./img/perlin/m_sinwav.gif]]
+
+#+CAPTION: На этом графике красными точками отмечены случайные значения, полученные с помощью функции. Длина волны (wavelength) - расстояние от одной красной точки до другой. Амплитуда (amplitude) - разность между максимальными и минимальным значениями, которые может вернуть функция. Частота (frequency) = 1 / wavelenght .
+[[./img/perlin/m_ranwav.gif]]
+
+#+CAPTION: Построим несколько графиков интерполированных функций с разными значениями амплитуды и частоты - это различные октавы нашей функции шума.
+[[./img/perlin/six.png]]
+
+#+CAPTION: Сложим все шесть функций (октав) вместе и получим примерно следующее.
+[[./img/perlin/summ.png]]
 
 
+Вводится понятие "настойчивость" (persistence):
+- frequency = 2^i
+- amplitude = persistence^i
+
+#+CAPTION: Различные октавы и их сумма при разных значения настойчивости и частоты.
+[[./img/perlin/big.png]]
+
+****** Интерполяция
+У нас уже есть функция шума, которая возвращает случайные значения, чтобы поулчить более-менее реалистичный результат нам необходима интерполяция. Есть несколько подходов.
+
+Обычно функция интерполяции принимает следующие параметры:
+- *A* и *B* - значения, между которыми нужно произвести интерполяцию (ru:wikipedia=способ нахождения промежуточных значений величины по имеющемуся дискретному набору известных значений).
+- *X* - значение от 0 до 1, которое указывает в каком месте интерполируемого промежутка (между *A* и *B*) нужно взять значение. Если *X* = 0, то функция вернет *A*, если *X* = 1, то вернет *B*.
+******* Линейная интерполяция 
+Быстро, "не очень гладко"
+
+#+BEGIN_EXAMPLE
+function Linear_Interpolate(a, b, x)
+         return  a*(1-x) + b*x
+end of function
+#+END_EXAMPLE
+
+#+CAPTION: Пример линейной интерполяции.
+[[./img/perlin/m_inter1.gif]]
+******* Интерполяция с помощью косинуса
+Не так быстро как линейная, результат более симпатичный, чем при
+линейной интерполяции.
+
+#+BEGIN_EXAMPLE
+function Cosine_Interpolate(a, b, x)
+        ft = x * 3.1415927
+        f = (1 - cos(ft)) * .5
+
+        return  a*(1-f) + b*f
+end of function
+#+END_EXAMPLE
+
+#+CAPTION: Пример интерполяции с помощью косинуса.
+[[./img/perlin/m_inter2.gif]]
+******* Кубическая интерполяция
+Не так быстро как с косинусом, результат более симпатичный, чем при интерполяции с помощью косинуса.
+
+
+В отличие от других функций, эта имеет пять параметров:
+- *v0* - точка перед *A*
+- *v1* - *A*
+- *v2* - *B*
+- *v3* - точка после *B*
+- *X* - тоже самое, что и в других функциях.
+
+ #+CAPTION: Параметры функции.
+[[./img/perlin/m_inter4b.gif]]
+
+#+BEGIN_EXAMPLE
+function Cubic_Interpolate(v0, v1, v2, v3,x)
+        P = (v3 - v2) - (v0 - v1)
+        Q = (v0 - v1) - P
+        R = v2 - v0
+        S = v1
+
+        return Px^3 + Qx^2 + Rx + S
+end of function
+#+END_EXAMPLE
+
+ #+CAPTION: Пример кубической интерполяции.
+[[./img/perlin/m_inter4.gif]]
+
+****** Сглаживание
+Помимо интерполяции, для того чтобы шум не выглядил сильно случайным, к нашему шуму нужно применить некий "сглаживающий" фильтр. Сглаживание значение будет происходить на основе значений соседних точек.
+******* 1D
+#+BEGIN_EXAMPLE
+function Noise(x)
+    .
+    .
+    .
+end function
+
+function SmoothNoise_1D(x)
+
+    return Noise(x)/2  +  Noise(x-1)/4  +  Noise(x+1)/4
+
+end function
+#+END_EXAMPLE
+******* 2D
+#+BEGIN_EXAMPLE
+function Noise(x, y)
+    .
+    .
+    .
+end function
+
+function SmoothNoise_2D(x, y)
+    
+    corners = ( Noise(x-1, y-1) + Noise(x+1, y-1) + Noise(x-1, y+1) + Noise(x+1, y+1) ) / 16
+    sides   = ( Noise(x-1,   y) + Noise(x+1,   y) + Noise(x,   y-1) + Noise(x,   y+1) ) /  8
+    center  =   Noise(x, y) / 4
+
+    return corners + sides + center
+
+
+end function
+#+END_EXAMPLE
+******* Псевдокод 1D
+#+BEGIN_EXAMPLE
+function Noise1(integer x)
+  x = (x<<13) ^ x;
+  return ( 1.0 - ( (x * (x * x * 15731 + 789221) + 1376312589) & 7fffffff) / 1073741824.0);    
+end function
+
+
+function SmoothedNoise_1(float x)
+  return Noise(x)/2  +  Noise(x-1)/4  +  Noise(x+1)/4
+end function
+
+
+function InterpolatedNoise_1(float x)
+
+    integer_X    = int(x)
+    fractional_X = x - integer_X
+
+    v1 = SmoothedNoise1(integer_X)
+    v2 = SmoothedNoise1(integer_X + 1)
+
+    return Interpolate(v1 , v2 , fractional_X)
+
+end function
+
+
+function PerlinNoise_1D(float x)
+
+    total = 0
+    p = persistence
+    n = Number_Of_Octaves - 1
+
+    loop i from 0 to n
+
+        frequency = 2^i
+        amplitude = p^i
+
+        total = total + InterpolatedNoisei(x * frequency) * amplitude
+
+    end of i loop
+
+    return total
+
+end function
+#+END_EXAMPLE
+******* Псевдокод 2D
+#+BEGIN_EXAMPLE
+function Noise1(integer x, integer y)
+  n = x + y * 57
+  n = (n<<13) ^ n;
+  return ( 1.0 - ( (n * (n * n * 15731 + 789221) + 1376312589) & 7fffffff) / 1073741824.0);    
+end function
+
+function SmoothNoise_1(float x, float y)
+  corners = ( Noise(x-1, y-1) + Noise(x+1, y-1) + Noise(x-1, y+1) + Noise(x+1, y+1) ) / 16
+  sides   = ( Noise(x-1,   y) + Noise(x+1,   y) + Noise(x,   y-1) + Noise(x,   y+1) ) /  8
+  center  =  Noise(x, y) / 4
+  return corners + sides + center
+end function
+
+function InterpolatedNoise_1(float x, float y)
+
+    integer_X    = int(x)
+    fractional_X = x - integer_X
+
+    integer_Y    = int(y)
+    fractional_Y = y - integer_Y
+
+    v1 = SmoothedNoise1(integer_X,     integer_Y)
+    v2 = SmoothedNoise1(integer_X + 1, integer_Y)
+    v3 = SmoothedNoise1(integer_X,     integer_Y + 1)
+    v4 = SmoothedNoise1(integer_X + 1, integer_Y + 1)
+
+    i1 = Interpolate(v1 , v2 , fractional_X)
+    i2 = Interpolate(v3 , v4 , fractional_X)
+
+    return Interpolate(i1 , i2 , fractional_Y)
+
+end function
+
+
+function PerlinNoise_2D(float x, float y)
+
+    total = 0
+    p = persistence
+    n = Number_Of_Octaves - 1
+
+    loop i from 0 to n
+
+        frequency = 2^i
+        amplitude = p^i
+
+        total = total + InterpolatedNoisei(x * frequency, y * frequency) * amplitude
+
+    end of i loop
+
+    return total
+
+end function
+#+END_EXAMPLE
+****** Diamond square
+Основная идея: мы начинаем с пустой матрицы размера 2^n + 1 (n=5,
+33x33; n=6, 65x54; n=7, 129x129). Устанавливаем точкам по углам равные
+значения (first square step). Это отправная точка для цикла, в котором
+задача будет постепенно разделяться на более мелкие.
+
+#+CAPTION: Пример с матрицей 5х5.
+[[./img/dsa/dsa.gif]]
+
+Далее копипаста с хабра (http://habrahabr.ru/blogs/algorithm/111538/).
+
+Попробуем обобщить этот алгоритм для двумерной карты высот. Начнем с присвоения случайных высот четырем углам всей карты целиком и разобъем её (для удобства я предполагаю, что мы работаем с квадратной картой, причем её сторона является степенью двойки) на четыре равных квадрата. В каждом из них известно значение в одном из углов. Где взять остальные?
+
+Всё той же интерполяцией, как и в одномерном midpoint displacement — точка в центре получается усреднением высот всех 4 угловых точек, а каждая серединная точка на стороне большого квадрата — усреднением пары точек, лежащих на концах соответствующей стороны. Осталось привнести немного шума — сдвинуть случайным образом центральную точку вверх или вниз (в пределах, пропорциональных стороне квадрата) — и можно повторять рекурсивно наши действия для полученных под-квадратиков. Всё? Всё, да не всё.
+
+#+CAPTION: Midpoint displacement algorithm.
+[[./img/dsa/habr1.png]]
+
+Это ещё не diamond-square — данный алгоритм, как правило, тоже называют алгоритмом midpoint displacement и несмотря на то, что он дает уже относительно приемлимые результаты, в получившейся картинке без особого труда можно заметить её «прямолинейную» натуру.
+
+Алгоритм diamond-square — тот самый, который позволяет получать «настоящие» фрактальные ландшафты — отличается от двумерного midpoint displacement тем, что состоит из двух шагов. Первый — т. н. «square» — точно так же определяет центральную точку в квадрате путем усреднения угловых и добавлением собственно displacement'а — случайного отклонения. Второй же шаг — «diamond» — призван определить высоту точек, лежащих на серединах сторон. Здесь усредняются не две точки — «сверху» и «снизу» (если говорить о точках на вертикальной стороне), но и пара точек «слева» и «справа» — то есть еще две полученных на шаге «square» центральных точки. Важно заметить, что эти две высоты, которые достались нам на предыдущем шаге, должны быть уже посчитаны — поэтому обсчет нужно вести «слоями», сначала для всех квадратов выполнить шаг «square» — затем для всех ромбов выполнить шаг «diamond» — и перейти к меньшим квадратам.
+
+Объяснения, думаю, могут показаться запутанными, поэтому советую внимательно изучить приложенные схемы — по ним должно стать яснее, высоты каких точек вычисляются на каждом этапе
+
+#+CAPTION: Diamond-square algorithm
+[[./img/dsa/habr2.png]]
+
+
+Кроме необходимости использовать, скажем так, обход в ширину вместо обхода в глубину, есть ещё одна тонкость — ситуация на краях ландшафта. Дело в том, что на этапе «diamond» алгоритм использует высоту точек, которых находятся за пределами текущего квадрата и, возможно, всей карты. Как быть? Варианта два (хотя вы можете придумать и свой собственный, конечно): либо считать эти высоты равными 0 (или 1, или любой другой константе; это, кстати, удобно для погружения краев нашего ландшафта под воду), либо представить что наша плоскость свернута в тор (тороидальная планета, хм…) и пытаясь узнать высоту точки, лежащей на 64 пикселя левее левой границы карты, мы узнаем высоту точки, отстоящей на 64 точки от правой границы. Реализуется очень просто (как, впрочем, и первый вариант) — нам поможет взятие координат по модулю, равному размеру карты.
+
+******* C++ implementation
+#+begin_src c++
+  #include <cstdlib>
+  //#include "tga.hpp"
+  #include <iostream>
+  #include <stdio.h>
+  
+  signed char scrand(signed char r = 127) { return (-r + 2 * (std::rand() % r)); }
+  
+  signed char** mdp(signed char** base, unsigned base_n, signed char r) {
+      size_t n = (2 * base_n) - 1;
+  
+      signed char** map = new signed char*[n];
+      for (unsigned i = 0; i < n; ++i) map[i] = new signed char[n];
+  
+      // Resize
+      // 1 0 1
+      // 0 0 0
+      // 1 0 1
+      for (size_t i = 0; i < n; i += 2) {
+          for (size_t j = !(i % 2 == 0); j < n; j += 2) {
+              map[i][j] = base[i / 2][j / 2];
+          }
+      }
+  
+      // Diamond algorithm
+      // 0 0 0
+      // 0 X 0
+      // 0 0 0
+      for (size_t i = 1; i < n; i += 2) {
+          for (size_t j = 1; j < n; j += 2) {
+              signed char& map_ij = map[i][j];
+  
+              signed char a = map[i - 1][j - 1];
+              signed char b = map[i - 1][j + 1];
+              signed char c = map[i + 1][j - 1];
+              signed char d = map[i + 1][j + 1];
+              map_ij = (a + b + c + d) / 4;
+  
+              int rv = scrand(r);
+              if (map_ij + rv > 127 )
+                  map_ij = 127;
+              else if(map_ij + rv < -128)
+                  map_ij = -128;
+              else
+                  map_ij += rv;
+          }
+      }
+  
+      // Square algorithm
+      // 0 1 0
+      // 1 0 1
+      // 0 1 0
+      for (size_t i = 0; i < n; ++i) {
+          for (size_t j = (i % 2 == 0); j < n; j += 2) {
+              signed char& map_ij = map[i][j];
+  
+              // get surrounding values
+              signed char a = 0, b = a, c = a, d = a;
+              if (i != 0) a = map[i - 1][j];
+              if (j != 0) b = map[i][j - 1];
+              if (j + 1 != n) c = map[i][j + 1];
+              if (i + 1 != n) d = map[i + 1][j];
+  
+              // average calculation
+              if (i == 0) map_ij = (b + c + d) / 3;
+              else if (j == 0) map_ij = (a + c + d) / 3;
+              else if (j + 1 == n) map_ij = (a + b + d) / 3;
+              else if (i + 1 == n) map_ij = (a + b + c) / 3;
+              else map_ij = (a + b + c + d) / 4;
+  
+              int rv = scrand(r);
+              if (map_ij + rv > 127 )
+                  map_ij = 127;
+              else if(map_ij + rv < -128)
+                  map_ij = -128;
+              else
+                  map_ij += rv;
+          }
+  
+      }
+  
+      return map;
+  }
+  
+  signed char** createnoise(unsigned n) {
+      signed char** noise = new signed char*[n];
+      for (unsigned i = 0; i < n; ++i) {
+          noise[i] = new signed char[n];
+          for (unsigned j = 0; j < n; ++j) noise[i][j] = scrand();
+      }
+      return noise;
+  }
+  
+  int main() {
+      /////// Heightmap generation
+      const unsigned n = 512;
+  
+      signed char** final = new signed char*[n];
+      for (unsigned i = 0;
+           i < n; ++i) {
+          final[i] = new signed char[n];
+          for (unsigned j = 0; j < n; ++j) final[i][j] = scrand();
+      }
+  
+      for (unsigned i = 1; i < 6; ++i) final = mdp(final, n, 64 / i);
+  
+      // Dump heightmap to TARGA image
+      {
+          unsigned char* imgdta = new unsigned char[n * n];
+          for (size_t i = 0; i < n; ++i) {
+              for (size_t j = 0; j < n; ++j) {
+                  imgdta[(i * n) + j] = 128 + final[i][j];
+              }
+          }
+          char file_name[] = "x_iter.tga";
+          FILE *fp = fopen( file_name, "wb" );
+          const unsigned char header[] =
+              { 0,0,3,0,0,0,0,0,0,0,0,0,0,2,0,2,8,32 };
+          fwrite( header, sizeof(header), 1, fp );
+          fwrite( imgdta, n*n, 1, fp );
+          fclose( fp );
+          //tga_image mytga = {n, n, 8, imgdta};
+          //save_tga_image(file_name, mytga);
+          delete[] imgdta;
+      }
+  
+      return 0;
+  }
+  #+end_src
 
 ***** simplex
 ***** wavelet
