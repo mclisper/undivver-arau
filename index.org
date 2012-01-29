@@ -1,0 +1,14 @@
+#+STYLE: <link rel="stylesheet" type="text/css" href="css/worg.css" />
+#+TITLE: Главная
+#+AUTHOR: Urist McLisper
+#+EMAIL: mclisper@gmail.com
+
+* О проекте
+- [[http://mclisper.github.com/undivver-arau/about.html][О проекте]]
+- [[http://mclisper.github.com/undivver-arau/workflow.html][О процессе разработки]]
+- [[http://mclisper.github.com/undivver-arau/rules.htm][Правила и соглашения]]
+- [[http://mclisper.github.com/undivver-arau/join.html][Как помочь? Как присоединиться?]]
+  
+* Результаты работы
+- [[http://mclisper.github.com/undivver-arau/design.html][Основной дизайн-документ (рабочая версия)]]
+- [[http://mclisper.github.com/undivver-arau/roadmap.html][Roadmap]]

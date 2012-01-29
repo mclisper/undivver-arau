@@ -1,0 +1,4 @@
+#+STYLE: <link rel="stylesheet" type="text/css" href="css/worg.css" />
+#+TITLE: Как помочь? Как присоединиться?
+#+AUTHOR: Urist McLisper
+#+EMAIL: mclisper@gmail.com
