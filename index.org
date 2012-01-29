@@ -6,7 +6,7 @@
 * О проекте
 - [[http://mclisper.github.com/undivver-arau/about.html][О проекте]]
 - [[http://mclisper.github.com/undivver-arau/workflow.html][О процессе разработки]]
-- [[http://mclisper.github.com/undivver-arau/rules.htm][Правила и соглашения]]
+- [[http://mclisper.github.com/undivver-arau/rules.html][Правила и соглашения]]
 - [[http://mclisper.github.com/undivver-arau/join.html][Как помочь? Как присоединиться?]]
   
 * Результаты работы
