@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Дизайн"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-01-29 18:51:49 MSK"/>
+<meta name="generated" content="2012-01-29 20:31:41 MSK"/>
 <meta name="author" content="Urist McLisper"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -117,7 +117,10 @@
 <li><a href="#sec-2-1-1">2.1.1 Требования</a></li>
 <li><a href="#sec-2-1-2">2.1.2 Usecase</a></li>
 <li><a href="#sec-2-1-3">2.1.3 Главный цикл</a></li>
-<li><a href="#sec-2-1-4">2.1.4 Общие рекомендации по проектированию - http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html</a></li>
+<li><a href="#sec-2-1-4">2.1.4 Условия выигрыша</a></li>
+<li><a href="#sec-2-1-5">2.1.5 Проблемы которые надо решить - http://roguebasin.roguelikedevelopment.org/index.php/Code_design_basics</a></li>
+<li><a href="#sec-2-1-6">2.1.6 Save / Load - http://roguebasin.roguelikedevelopment.org/index.php/Save_Files</a></li>
+<li><a href="#sec-2-1-7">2.1.7 Общие рекомендации по проектированию - http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html</a></li>
 </ul>
 </li>
 <li><a href="#sec-2-2">2.2 Интерфейс</a>
@@ -128,21 +131,40 @@
 </li>
 <li><a href="#sec-2-3">2.3 Мир</a>
 <ul>
-<li><a href="#sec-2-3-1">2.3.1 Полезные статьи</a></li>
-<li><a href="#sec-2-3-2">2.3.2 Карта высот - http://www.youtube.com/watch?v=lfOg4KnLgjs</a></li>
-<li><a href="#sec-2-3-3">2.3.3 Биомы и климат</a></li>
+<li><a href="#sec-2-3-1">2.3.1 Представление мира</a></li>
+<li><a href="#sec-2-3-2">2.3.2 Подземелья</a></li>
+<li><a href="#sec-2-3-3">2.3.3 Как быть с вещами которые происходят далека от игрока?</a></li>
+<li><a href="#sec-2-3-4">2.3.4 Фракталы - http://roguebasin.roguelikedevelopment.org/index.php/Fractals</a></li>
+<li><a href="#sec-2-3-5">2.3.5 Полезные статьи</a></li>
+<li><a href="#sec-2-3-6">2.3.6 Карта высот - http://www.youtube.com/watch?v=lfOg4KnLgjs</a></li>
+<li><a href="#sec-2-3-7">2.3.7 Биомы и климат</a></li>
 </ul>
 </li>
 <li><a href="#sec-2-4">2.4 Время</a>
 <ul>
-<li><a href="#sec-2-4-1">2.4.1 Времена года (связано с биомами и климатом)</a></li>
-<li><a href="#sec-2-4-2">2.4.2 День / ночь.</a></li>
+<li><a href="#sec-2-4-1">2.4.1 Система ходов, "время" и боевая система</a></li>
+<li><a href="#sec-2-4-2">2.4.2 Времена года (связано с биомами и климатом)</a></li>
+<li><a href="#sec-2-4-3">2.4.3 День / ночь.</a></li>
 </ul>
 </li>
-<li><a href="#sec-2-5">2.5 Объекты</a></li>
+<li><a href="#sec-2-5">2.5 Объекты</a>
+<ul>
+<li><a href="#sec-2-5-1">2.5.1 Набросок классификации</a></li>
+</ul>
+</li>
 <li><a href="#sec-2-6">2.6 Строительство</a></li>
 <li><a href="#sec-2-7">2.7 Раскопки</a></li>
-<li><a href="#sec-2-8">2.8 Существа</a></li>
+<li><a href="#sec-2-8">2.8 Существа</a>
+<ul>
+<li><a href="#sec-2-8-1">2.8.1 AI</a></li>
+<li><a href="#sec-2-8-2">2.8.2 Line of sight</a></li>
+<li><a href="#sec-2-8-3">2.8.3 Field of vision</a></li>
+<li><a href="#sec-2-8-4">2.8.4 Field of noise</a></li>
+<li><a href="#sec-2-8-5">2.8.5 Field of smell</a></li>
+<li><a href="#sec-2-8-6">2.8.6 Генетика монстров и нейронные сети</a></li>
+<li><a href="#sec-2-8-7">2.8.7 Организация памяти для хранения, подсчет ссылок</a></li>
+</ul>
+</li>
 <li><a href="#sec-2-9">2.9 Механизмы и аппараты</a></li>
 <li><a href="#sec-2-10">2.10 Вещества / материалы</a>
 <ul>
@@ -155,6 +177,11 @@
 </ul>
 </li>
 <li><a href="#sec-2-11">2.11 Цивилизации, города, поселки - генерация</a></li>
+<li><a href="#sec-2-12">2.12 Квесты</a>
+<ul>
+<li><a href="#sec-2-12-1">2.12.1 Типы квестов</a></li>
+<li><a href="#sec-2-12-2">2.12.2 Еще одна классификация квестов</a></li>
+</ul></li>
 </ul>
 </li>
 <li><a href="#sec-3">3 Полезная инфа</a>
@@ -164,8 +191,15 @@
 </li>
 <li><a href="#sec-4">4 Хаотичный список фич и идей</a>
 <ul>
-<li><a href="#sec-4-1">4.1 Заговоры</a></li>
-<li><a href="#sec-4-2">4.2 Дварфийский язык</a></li>
+<li><a href="#sec-4-1">4.1 Dwarfscript</a></li>
+<li><a href="#sec-4-2">4.2 Заговоры</a></li>
+<li><a href="#sec-4-3">4.3 Дварфийский язык</a></li>
+<li><a href="#sec-4-4">4.4 Multilevel strategy</a></li>
+<li><a href="#sec-4-5">4.5 Фича с астрологией для игры</a></li>
+<li><a href="#sec-4-6">4.6 Кодекс чести для игры</a></li>
+<li><a href="#sec-4-7">4.7 Генератор гербов / Калькулятор</a></li>
+<li><a href="#sec-4-8">4.8 Генерируемые квесты</a></li>
+<li><a href="#sec-4-9">4.9 Список основных сюжетов для создания квестов</a></li>
 </ul>
 </li>
 </ul>
@@ -232,9 +266,13 @@
 </li>
 <li>Наличие встроенной lisp-среды.
 </li>
-<li>Наличие системы вызова команд в духе emacs (M-x &lt;command&gt; - с автодополнением). 
+<li>Наличие системы вызова команд в духе emacs (M-x &lt;command&gt; - с
+    автодополнением).
+</li>
+<li>Отказ от какого-либо влияния "реального" времени на игровое должен заметно упростить процесс разработки.
 </li>
 </ol>
+
 
 </div>
 
@@ -558,13 +596,53 @@
 <div class="outline-text-4" id="text-2-1-3">
 
 <p><a href="http://habrahabr.ru/blogs/gdev/136878/">http://habrahabr.ru/blogs/gdev/136878/</a>
-</p></div>
+</p>
+
+
+
+
+<pre class="example">/*  :) */
+while (true) {
+    process_input();
+    run_ai();
+    update_graphics();
+    update_sound();
+ }
+</pre>
+
+</div>
 
 </div>
 
 <div id="outline-container-2-1-4" class="outline-4">
-<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> Общие рекомендации по проектированию - <a href="http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html">http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html</a></h4>
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> Условия выигрыша</h4>
 <div class="outline-text-4" id="text-2-1-4">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> Проблемы которые надо решить - <a href="http://roguebasin.roguelikedevelopment.org/index.php/Code_design_basics">http://roguebasin.roguelikedevelopment.org/index.php/Code_design_basics</a></h4>
+<div class="outline-text-4" id="text-2-1-5">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-6" class="outline-4">
+<h4 id="sec-2-1-6"><span class="section-number-4">2.1.6</span> Save / Load - <a href="http://roguebasin.roguelikedevelopment.org/index.php/Save_Files">http://roguebasin.roguelikedevelopment.org/index.php/Save_Files</a></h4>
+<div class="outline-text-4" id="text-2-1-6">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-1-7" class="outline-4">
+<h4 id="sec-2-1-7"><span class="section-number-4">2.1.7</span> Общие рекомендации по проектированию - <a href="http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html">http://pages.cs.wisc.edu/~psilord/lisp-public/option-9.html</a></h4>
+<div class="outline-text-4" id="text-2-1-7">
 
 </div>
 </div>
@@ -606,30 +684,103 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </div>
 
 <div id="outline-container-2-3-1" class="outline-4">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Полезные статьи</h4>
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Представление мира</h4>
 <div class="outline-text-4" id="text-2-3-1">
+
+<p>Создание мира должно зависеть от зерна (seed), таким образом все генераторы случайных чисел, которые будут использоваться для генерации мира должны использовать это зерно.
+</p>
+<p>
+На самом верхнем уровне мир должен представлять из себя карту в крупном масштабе с минимальным числом деталей, непосредственной игровой участок будет выбираться на этой карте.
+</p>
+<ul>
+<li>Возможно придется использовать сжатие (zlib) для сгенерированных уровней. 
+</li>
+<li>Где хранить монстров, предметы и другие игровые объекты? 
+</li>
+</ul>
+
+
+<p>
+На карте? Или на в карте хранить только высоты и флаги наличия объектов, монстров и другое? Монстров и другие объекты можно хранить в отдельных списках, а в них хранить их координаты. Возможно порядок ходов монстров не важен и есть смысл хранить их не в списках а хэш-таблицах.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Подземелья</h4>
+<div class="outline-text-4" id="text-2-3-2">
+
+<p>Традиционные двумерные тайловые подземелья, где каждый тайл содержит в себе примерно следующую информацию:
+</p>
+<ul>
+<li>Тип
+</li>
+<li>Список свойств (можно ли пройти, есть ли свет, открыт ли он игроком)
+</li>
+<li>Список вещей, которые тут находятся
+</li>
+<li>Список монстров
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Как быть с вещами которые происходят далека от игрока?</h4>
+<div class="outline-text-4" id="text-2-3-3">
+
+<p>Если речь идет о подземелье в котором игрок давно не был, перед тем
+как поместить игрока в подземелье можно раз 50-100 обработать, сделать
+ходя за всех монстров на уровне. Причем кол-во ходов может зависеть от
+того как давно там был игрок, поскольку игра будет основана на ходах,
+каждый раз входя в такое подземелье для него или для определенного
+уровня этого подземелья будет запоминать номер хода, а при повторном
+посещении оного спустя некоторое время просто будет сравниваться с
+текущим счетчиком ходов.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-3-4" class="outline-4">
+<h4 id="sec-2-3-4"><span class="section-number-4">2.3.4</span> Фракталы - <a href="http://roguebasin.roguelikedevelopment.org/index.php/Fractals">http://roguebasin.roguelikedevelopment.org/index.php/Fractals</a></h4>
+<div class="outline-text-4" id="text-2-3-4">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3-5" class="outline-4">
+<h4 id="sec-2-3-5"><span class="section-number-4">2.3.5</span> Полезные статьи</h4>
+<div class="outline-text-4" id="text-2-3-5">
 
 <p><a href="http://doryen.eptalys.net/articles/">http://doryen.eptalys.net/articles/</a>
 </p></div>
 
 </div>
 
-<div id="outline-container-2-3-2" class="outline-4">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Карта высот - <a href="http://www.youtube.com/watch?v=lfOg4KnLgjs">http://www.youtube.com/watch?v=lfOg4KnLgjs</a></h4>
-<div class="outline-text-4" id="text-2-3-2">
+<div id="outline-container-2-3-6" class="outline-4">
+<h4 id="sec-2-3-6"><span class="section-number-4">2.3.6</span> Карта высот - <a href="http://www.youtube.com/watch?v=lfOg4KnLgjs">http://www.youtube.com/watch?v=lfOg4KnLgjs</a></h4>
+<div class="outline-text-4" id="text-2-3-6">
 
 <ul>
-<li id="sec-2-3-2-1">Алгоритмы генерации шума (noise)<br/>
+<li id="sec-2-3-6-1">Алгоритмы генерации шума (noise)<br/>
 <ul>
-<li id="sec-2-3-2-1-1">perlinx<br/>
+<li id="sec-2-3-6-1-1"><span class="todo TODO"> TODO</span> Perlin Noise ((частичный перевод - <a href="http://freespace.virgin.net/hugo.elias/models/m_perlin.htm">http://freespace.virgin.net/hugo.elias/models/m_perlin.htm</a>)<br/>
+
+
+
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-1-2">simplex<br/>
+<li id="sec-2-3-6-1-2">simplex<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-1-3">wavelet<br/>
+<li id="sec-2-3-6-1-3">wavelet<br/>
 Полезные ссылки:
 <ul>
 <li><a href="http://www.nolithius.com/game-development/world-generation-breakdown">http://www.nolithius.com/game-development/world-generation-breakdown</a>
@@ -647,11 +798,11 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-2">Diamond square - <a href="http://habrahabr.ru/blogs/algorithm/111538/">http://habrahabr.ru/blogs/algorithm/111538/</a><br/>
+<li id="sec-2-3-6-2">Diamond square - <a href="http://habrahabr.ru/blogs/algorithm/111538/">http://habrahabr.ru/blogs/algorithm/111538/</a><br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-3">Полезные ссылки<br/>
+<li id="sec-2-3-6-3">Полезные ссылки<br/>
 <ul>
 <li><a href="http://simblob.blogspot.com/">http://simblob.blogspot.com/</a>
 </li>
@@ -662,53 +813,53 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-4">Эррозия<br/>
+<li id="sec-2-3-6-4">Эррозия<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-5">Реки<br/>
+<li id="sec-2-3-6-5">Реки<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-6">Горы<br/>
+<li id="sec-2-3-6-6">Горы<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-7">BSP generation - <a href="http://doryen.eptalys.net/articles/bsp-dungeon-generation/">http://doryen.eptalys.net/articles/bsp-dungeon-generation/</a><br/>
+<li id="sec-2-3-6-7">BSP generation - <a href="http://doryen.eptalys.net/articles/bsp-dungeon-generation/">http://doryen.eptalys.net/articles/bsp-dungeon-generation/</a><br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-8">Pathfinding<br/>
+<li id="sec-2-3-6-8">Pathfinding<br/>
 <ul>
-<li id="sec-2-3-2-8-1">A*<br/>
+<li id="sec-2-3-6-8-1">A*<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-8-2">Dijkstra - <a href="http://habrahabr.ru/blogs/algorithm/111361/">http://habrahabr.ru/blogs/algorithm/111361/</a><br/>
+<li id="sec-2-3-6-8-2">Dijkstra - <a href="http://habrahabr.ru/blogs/algorithm/111361/">http://habrahabr.ru/blogs/algorithm/111361/</a><br/>
 </li>
 </ul>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-9">Field of View<br/>
+<li id="sec-2-3-6-9">Field of View<br/>
 <ul>
-<li id="sec-2-3-2-9-1">basic raycasting<br/>
+<li id="sec-2-3-6-9-1">basic raycasting<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-9-2">recursive shadowcasting<br/>
+<li id="sec-2-3-6-9-2">recursive shadowcasting<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-9-3">diamond raycasting<br/>
+<li id="sec-2-3-6-9-3">diamond raycasting<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-9-4">precise permissive fov<br/>
+<li id="sec-2-3-6-9-4">precise permissive fov<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-2-9-5">restrictive shadowcasting a.k.a. MRPAS<br/>
+<li id="sec-2-3-6-9-5">restrictive shadowcasting a.k.a. MRPAS<br/>
 </li>
 </ul>
 </li>
@@ -717,12 +868,12 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 
 </div>
 
-<div id="outline-container-2-3-3" class="outline-4">
-<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Биомы и климат</h4>
-<div class="outline-text-4" id="text-2-3-3">
+<div id="outline-container-2-3-7" class="outline-4">
+<h4 id="sec-2-3-7"><span class="section-number-4">2.3.7</span> Биомы и климат</h4>
+<div class="outline-text-4" id="text-2-3-7">
 
 <ul>
-<li id="sec-2-3-3-1">Minecraft<br/>
+<li id="sec-2-3-7-1">Minecraft<br/>
 <div class="figure">
 <p><img src="./img/BiomesGraph.png"  alt="./img/BiomesGraph.png" /></p>
 <p>График температуры/осадков в зависимости от биома.</p>
@@ -753,9 +904,9 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-2">DF<br/>
+<li id="sec-2-3-7-2">DF<br/>
 <ul>
-<li id="sec-2-3-3-2-1">Засушливые (Аридные)<br/>
+<li id="sec-2-3-7-2-1">Засушливые (Аридные)<br/>
 <ol>
 <li>Arctic Ocean (Холодный океан)
 </li>
@@ -778,7 +929,7 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-2-2">Умеренные<br/>
+<li id="sec-2-3-7-2-2">Умеренные<br/>
 <ol>
 <li>Temperate Broadleaf forest (Умеренный лиственный лес)
 </li>
@@ -807,7 +958,7 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-2-3">Тропические<br/>
+<li id="sec-2-3-7-2-3">Тропические<br/>
 <ol>
 <li>Tropical Dry Broadleaf forest (Тропический сухой лиственный лес)
 </li>
@@ -833,7 +984,7 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-3">Terraria<br/>
+<li id="sec-2-3-7-3">Terraria<br/>
 <ol>
 <li>Леса - Для посадки деревьев необходимы жёлуди, которые падают с
    деревьев, когда вы их рубите. Замкнутый круг, не так ли? Также,
@@ -903,7 +1054,7 @@ howto - <a href="http://doryen.eptalys.net/forum/index.php?topic=383.0">http://d
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-4">Классификации биомов<br/>
+<li id="sec-2-3-7-4">Классификации биомов<br/>
 Climate is a major factor determining the distribution of terrestrial
 biomes. Among the important climatic factors are:
 <ul>
@@ -931,21 +1082,21 @@ during the winter months.
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-5">Климат<br/>
+<li id="sec-2-3-7-5">Климат<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-6">Температура<br/>
+<li id="sec-2-3-7-6">Температура<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-7">Погода<br/>
+<li id="sec-2-3-7-7">Погода<br/>
 <ul>
-<li id="sec-2-3-3-7-1">Дождь<br/>
+<li id="sec-2-3-7-7-1">Дождь<br/>
 </li>
 </ul>
 <ul>
-<li id="sec-2-3-3-7-2">Снег<br/>
+<li id="sec-2-3-7-7-2">Снег<br/>
 </li>
 </ul>
 </li>
@@ -963,16 +1114,26 @@ during the winter months.
 </div>
 
 <div id="outline-container-2-4-1" class="outline-4">
-<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Времена года (связано с биомами и климатом)</h4>
+<h4 id="sec-2-4-1"><span class="section-number-4">2.4.1</span> Система ходов, "время" и боевая система</h4>
 <div class="outline-text-4" id="text-2-4-1">
 
+<p>Скорость у разных мобов и игроков может быть разная и это надо как-то учитывать. <a href="http://roguebasin.roguelikedevelopment.org/index.php/Monster_attacks_in_a_structured_list">http://roguebasin.roguelikedevelopment.org/index.php/Monster_attacks_in_a_structured_list</a> <a href="http://roguebasin.roguelikedevelopment.org/index.php/Monster_attacks">http://roguebasin.roguelikedevelopment.org/index.php/Monster_attacks</a> <a href="http://roguebasin.roguelikedevelopment.org/index.php/Time_Systems">http://roguebasin.roguelikedevelopment.org/index.php/Time_Systems</a>
+</p>
 </div>
 
 </div>
 
 <div id="outline-container-2-4-2" class="outline-4">
-<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> День / ночь.</h4>
+<h4 id="sec-2-4-2"><span class="section-number-4">2.4.2</span> Времена года (связано с биомами и климатом)</h4>
 <div class="outline-text-4" id="text-2-4-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4-3" class="outline-4">
+<h4 id="sec-2-4-3"><span class="section-number-4">2.4.3</span> День / ночь.</h4>
+<div class="outline-text-4" id="text-2-4-3">
 
 </div>
 </div>
@@ -983,6 +1144,43 @@ during the winter months.
 <h3 id="sec-2-5"><span class="section-number-3">2.5</span> Объекты</h3>
 <div class="outline-text-3" id="text-2-5">
 
+<p>У любого предмета могут быть "общие" свойства и "уникальные". Общие одинаковы для всех объектов данного типа.
+</p>
+</div>
+
+<div id="outline-container-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> Набросок классификации</h4>
+<div class="outline-text-4" id="text-2-5-1">
+
+<ul>
+<li>Объект 
+<ul>
+<li>Зелья 
+</li>
+<li>Свитки 
+</li>
+<li>Книги 
+</li>
+<li>"Светильники" 
+</li>
+<li>Еда 
+</li>
+<li>Оружие 
+</li>
+<li>Броня 
+</li>
+<li>Бижутерия 
+</li>
+<li>Волшебные палочки 
+</li>
+<li>Посохи
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
 </div>
 
 </div>
@@ -1007,6 +1205,85 @@ during the winter months.
 <h3 id="sec-2-8"><span class="section-number-3">2.8</span> Существа</h3>
 <div class="outline-text-3" id="text-2-8">
 
+
+</div>
+
+<div id="outline-container-2-8-1" class="outline-4">
+<h4 id="sec-2-8-1"><span class="section-number-4">2.8.1</span> AI</h4>
+<div class="outline-text-4" id="text-2-8-1">
+
+<p>Простой конечный автомат состояний: атака, идти куда-нибудь (куда - зависит от монстра, возможно там должно быть что-то интеллектуальное), отдых, отступать, красться и другое. К состояниям приделать ряд условий, выполнив которые можно перейти в другое состояние.
+</p>
+<ul>
+<li id="sec-2-8-1-1">Направление движения<br/>
+Можно выделить несколько подходов:
+<ul>
+<li>Простое движение в направлении противника без просчета всего пути (выполняется только в условиях видимости противника или если известно последнее место пребывания противника).
+</li>
+<li>Обход препятствий и просчет всего пути движения (только для "умных" монстров).
+</li>
+<li>Монстр может искать по области видимости игрока, если монстр не видит самого игрока, но видит тайл, который видит игрок, то монстр двигается в его сторону.
+</li>
+<li>А* и алгоритм Дейкстры - только раз в несколько ходов, для экономии вычислительных ресурсов.
+</li>
+</ul>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2-8-2" class="outline-4">
+<h4 id="sec-2-8-2"><span class="section-number-4">2.8.2</span> Line of sight</h4>
+<div class="outline-text-4" id="text-2-8-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-8-3" class="outline-4">
+<h4 id="sec-2-8-3"><span class="section-number-4">2.8.3</span> Field of vision</h4>
+<div class="outline-text-4" id="text-2-8-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-2-8-4" class="outline-4">
+<h4 id="sec-2-8-4"><span class="section-number-4">2.8.4</span> Field of noise</h4>
+<div class="outline-text-4" id="text-2-8-4">
+
+<p>Возможно отслеживать по издаваемым звукам. Определенное действие издает звук определенный величины (амплитуда), который слышно на определенном удалении. Возможно у монстров будет характеристика отвечающая за чуткость звука. Например звук ударов молота о наковальню слышно за 50 тайлов, монстр с идеальным слухом услышит этот звук, а монстр с более слабым слухом - не услышит.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-8-5" class="outline-4">
+<h4 id="sec-2-8-5"><span class="section-number-4">2.8.5</span> Field of smell</h4>
+<div class="outline-text-4" id="text-2-8-5">
+
+<p>Аналогично с шумом, но только для запахов. Чтобы сильно не загружать вычислениями, такое можно применять только для специфичных и характерно "пахнущих" предметов или только для монстров, которые имеют острых нюх.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-8-6" class="outline-4">
+<h4 id="sec-2-8-6"><span class="section-number-4">2.8.6</span> Генетика монстров и нейронные сети</h4>
+<div class="outline-text-4" id="text-2-8-6">
+
+<p>Возможно следует использовать генетические алгоритмы для усовершенствования характеристик монстров. Нейронные сети можно применить для принятия решений на основе накопленных знаний в данной игровой ситуации (подробнее тут - <a href="http://roguebasin.roguelikedevelopment.org/index.php/Roguelike_Dev_FAQ#How_do_you_add_variety_to_your_monsters.3F">http://roguebasin.roguelikedevelopment.org/index.php/Roguelike_Dev_FAQ#How_do_you_add_variety_to_your_monsters.3F</a>).
+</p></div>
+
+</div>
+
+<div id="outline-container-2-8-7" class="outline-4">
+<h4 id="sec-2-8-7"><span class="section-number-4">2.8.7</span> Организация памяти для хранения, подсчет ссылок</h4>
+<div class="outline-text-4" id="text-2-8-7">
+
+
+</div>
 </div>
 
 </div>
@@ -1082,6 +1359,131 @@ during the winter months.
 
 <p>Много инфы в этом блоге - <a href="http://www.introversion.co.uk/blog/archive.php&amp;ei=cwUCT7bBAoSa-gbQ5vSiAw&amp;sig2=LaklHJjBEOdiZ54EiU5Neg&amp;ct=b">http://www.introversion.co.uk/blog/archive.php&amp;ei=cwUCT7bBAoSa-gbQ5vSiAw&amp;sig2=LaklHJjBEOdiZ54EiU5Neg&amp;ct=b</a>
 </p>
+</div>
+
+</div>
+
+<div id="outline-container-2-12" class="outline-3">
+<h3 id="sec-2-12"><span class="section-number-3">2.12</span> Квесты</h3>
+<div class="outline-text-3" id="text-2-12">
+
+
+</div>
+
+<div id="outline-container-2-12-1" class="outline-4">
+<h4 id="sec-2-12-1"><span class="section-number-4">2.12.1</span> Типы квестов</h4>
+<div class="outline-text-4" id="text-2-12-1">
+
+<ul>
+<li>Убей Х
+</li>
+<li>Захвати X живым
+</li>
+<li>Найди X
+</li>
+<li>Встреться с X
+</li>
+<li>Принеси для X определенное количество Y
+</li>
+<li>Тоже самое что и 1.-5. только на перегонки с противником Z
+</li>
+<li>Поговорить Х
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-12-2" class="outline-4">
+<h4 id="sec-2-12-2"><span class="section-number-4">2.12.2</span> Еще одна классификация квестов</h4>
+<div class="outline-text-4" id="text-2-12-2">
+
+<p>When I was browsing through the rec.games.roguelike.development newsgroup I found a thread concerning quests. Below is the essential parts of the thread:
+</p>
+<p>
+THE ADVENTURER
+</p><ul>
+<li>Reach a certain location
+</li>
+<li>Map a location and bring the map to a person or location
+</li>
+<li>Find n objects and bring them to a person or location
+</li>
+<li>Find or catch n creatures and bring them to a person or location
+</li>
+<li>Something strange is going on. Track the source and stop it
+</li>
+<li>Escape from the trap (dungeon)
+</li>
+</ul>
+
+
+<p>
+THE HERO
+</p><ul>
+<li>Get n followers (of a specific type)
+</li>
+<li>Gather forces (beings and/or objects) and lead/bring them to a person or location
+</li>
+</ul>
+
+
+<p>
+THE WARRIOR
+</p><ul>
+<li>Kill n monsters (of a certain type)
+</li>
+<li>Clear a location from monsters
+</li>
+</ul>
+
+
+<p>
+THE MERCHANT
+</p><ul>
+<li>Manage a business to get beyond a certain limit (time/money)
+</li>
+</ul>
+
+
+<p>
+COMPETING WITH THE ENEMY/ARCHENEMY
+</p><ul>
+<li>Reach a location before the archenemy
+</li>
+<li>Get an object from a person before the archenemy
+</li>
+<li>Get an object from a location before the archenemy
+</li>
+<li>Find an object before the archenemy
+</li>
+<li>Steal an object from the enemy
+</li>
+</ul>
+
+
+<p>
+PROTECT FROM THE ENEMY/ARCHENEMY
+</p><ul>
+<li>Protect a location from the enemy (until civilians have escaped)
+</li>
+<li>Protect a person from the enemy
+</li>
+<li>Find and protect a person from the enemy
+</li>
+<li>Guide/protect a person on the way from one location to another
+</li>
+</ul>
+
+
+
+<p>
+Try to vary the number of ways in which the PC can enter into quests. It can be so much more interesting to be travelling the countryside and hear a maiden's wails than to be told exactly what the quest is &amp; where to go, etc. by some 'questmonger' in town.
+</p>
+
+</div>
 </div>
 </div>
 
@@ -1276,8 +1678,18 @@ during the winter months.
 </div>
 
 <div id="outline-container-4-1" class="outline-3">
-<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Заговоры</h3>
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Dwarfscript</h3>
 <div class="outline-text-3" id="text-4-1">
+
+<p>Скриптовый язык для написания сценариев работы дварфов в крепости.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Заговоры</h3>
+<div class="outline-text-3" id="text-4-2">
 
 <p>Недовольные жители могут объединиться и объявить забастовку, устроить
 заговор, заняться вредительством, распространять хоас и тантрум.
@@ -1285,9 +1697,9 @@ during the winter months.
 
 </div>
 
-<div id="outline-container-4-2" class="outline-3">
-<h3 id="sec-4-2"><span class="section-number-3">4.2</span> Дварфийский язык</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Дварфийский язык</h3>
+<div class="outline-text-3" id="text-4-3">
 
 <ul>
 <li><a href="http://www.stormnexus.org/Dwarven_Language">http://www.stormnexus.org/Dwarven_Language</a>
@@ -1306,12 +1718,196 @@ during the winter months.
 
 
 </div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Multilevel strategy</h3>
+<div class="outline-text-3" id="text-4-4">
+
+<p>Стратегия на нескольних уровнях/слоях. Приказы и задания отдаются в разных масштабах, причем произвольно регулируемым.
+</p></div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> Фича с астрологией для игры</h3>
+<div class="outline-text-3" id="text-4-5">
+
+<p>Игра связана с астрономией. Небо может содержать подсказки, если уметь их читать (определенные созвездия могут играть роль подсказок). Нужно "читать небо". По миру разбросаны книги с описанием созвездий. Созвездия могут генерироваться случайным образом. Несответствие названия и формы - мелочь. Генератор созвездий. Чтобы найти созвездие нужно последовательно соединить все звезды в созвездии (построить граф из точек).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-6" class="outline-3">
+<h3 id="sec-4-6"><span class="section-number-3">4.6</span> Кодекс чести для игры</h3>
+<div class="outline-text-3" id="text-4-6">
+
+<p>Реализовать в игре "кодекс чести" / "список смертных грехов". Наборы правил, хуков, описывающие определенные действия, при выполнении которых повышается/теряется статус.
+</p></div>
+
+</div>
+
+<div id="outline-container-4-7" class="outline-3">
+<h3 id="sec-4-7"><span class="section-number-3">4.7</span> Генератор гербов / Калькулятор</h3>
+<div class="outline-text-3" id="text-4-7">
+
+<p>Сбор параметров по поселению и генерация релевантного герба на их основе. Можно будет оценивать силы противника по гербу. Ряд параметров отображается в герб.
+</p></div>
+
+</div>
+
+<div id="outline-container-4-8" class="outline-3">
+<h3 id="sec-4-8"><span class="section-number-3">4.8</span> Генерируемые квесты</h3>
+<div class="outline-text-3" id="text-4-8">
+
+<p>Выделить типы квестов. Например:
+</p>
+<ul>
+<li>борьба за ресурс;
+</li>
+<li>дэдлоки;
+</li>
+<li>глобальные хуки.
+</li>
+</ul>
+
+
+
+<p>
+Высокии абстракции для генерации квестов.
+</p></div>
+
+</div>
+
+<div id="outline-container-4-9" class="outline-3">
+<h3 id="sec-4-9"><span class="section-number-3">4.9</span> Список основных сюжетов для создания квестов</h3>
+<div class="outline-text-3" id="text-4-9">
+
+<p>Известный писатель Хорхе Луис Борхес заявлял, что существует всего четыре сюжета и, соответственно, четыре героя, которых он и описал в своей новелле «Четыре цикла».
+</p>
+<p>
+Самая старая история - история об осажденном городе, который штурмуют и обороняют герои. Защитники знают, что город обречен и сопротивление бесполезно. Это история о Трое, и главный герой - Ахилл, знает, что погибнет, так и не увидев победы. Герой-мятежник, сам факт существования которого - вызов окружающей реальности. Кроме Ахилла, героями этого сюжета являются Зигфрид, Геракл, Сигурд и другие.
+</p>
+<p>
+Вторая история - о возвращении. История Одиссея, скитавшегося по морям десять лет в попытке вернуться домой. Герой этих историй - человек отверженный обществом, бесконечно блуждающий в попытках найти себя - Дон Кихот, Беовульф.
+</p>
+<p>
+История третья - о поиске. Эта история чем-то похожа на вторую, но в данном случае герой не является отверженным и не противопоставляет себя обществу. Наиболее известный пример такого героя - Ясон, плывущий за золотым руном.
+</p>
+<p>
+История четвертая - о самоубийстве бога. Атис калечит и убивает себя, Один жертвует собой Одину, самому себе, девять дней вися на дереве, пригвожденный копьем, римские легионеры распинают Христа. Герой «гибели богов» - теряющий или обретающий веру, находящийся в поиске веры - Заратустра, булгаковский Мастер, Болконский.
+</p>
+<p>
+Кристофер Букер в своей книге «The Seven Basic Plots: Why We Tell Stories» ("Семь основных сюжетов: почему мы рассказываем истории") описал семь базовых сюжетов, на основе которых, по его мнению, написаны все книги в мире.
+</p>
+<ul>
+<li>«Из грязи в князи» - название говорит само за себя, самый яркий пример, знакомый всем с детства - Золушка. Герои - обыкновенные люди, открывающие в себе что-то необычное, благодаря собственным усилиям или по стечению обстоятельств оказывающиеся «на вершине».
+</li>
+<li>«Приключение» - трудное путешествие в поисках труднодостижимой цели. По мнению Букера, сюда попадают и Одиссей, и Ясон, кроме того, в эту категорию попадают и «Копи царя Соломона», и «Вокруг света за восемьдесят дней».
+</li>
+<li>«Туда и обратно». В основе сюжета попытки героя, вырванного из привычного мира, вернуться домой. Это и «Робинзон Крузо», и «Алиса в зазеркалье», и многие другие.
+</li>
+<li>«Комедия» - Это не просто общий термин, это определенный вид сюжета, который развивается по собственным правилам. В эту категорию попадают все романы Джейн Остин.
+</li>
+<li>«Трагедия» - кульминацией является гибель главного героя из-за каких либо недостатков характера, обычно любовной страсти или жажды власти. Это, прежде всего, «Макбет», «Король Лир» и «Фауст».
+</li>
+<li>«Воскресение» - герой находится под властью проклятия или темных сил, и из этого состояния его выводит чудо. Яркий пример этого сюжета также знаком всем с детства - Спящая красавица, пробужденная поцелуем принца.
+</li>
+<li>«Победа над чудовищем» - из названия ясно, в чем заключается сюжет - герой сражается с монстром, побеждает его и получает «приз» - сокровища или любовь. Примеры: Дракула, Давид и Голиаф.
+</li>
+</ul>
+
+
+<p>
+Около ста лет назад драматург Жорж Польти составил свой список сюжетов из тридцати шести пунктов (кстати, первым число тридцать шесть было предложено еще Аристотелем и намного позднее поддержано Виктором Гюго). Тридцать шесть сюжетов и тем Польти охватывают, в основном, драматургию и трагедии. Вокруг этого списка велись споры, его неоднократно критиковали, но опротестовать само число 36 никто не пытался.
+</p>
+<ul>
+<li>Мольба
+</li>
+<li>Спасение
+</li>
+<li>Месть, преследующая преступление
+</li>
+<li>Месть близкому за близкого
+</li>
+<li>Затравленный
+</li>
+<li>Внезапное несчастье
+</li>
+<li>Жертва кого-либо
+</li>
+<li>Бунт
+</li>
+<li>Отважная попытка
+</li>
+<li>Похищение
+</li>
+<li>Загадка
+</li>
+<li>Достижение
+</li>
+<li>Ненависть между близкими
+</li>
+<li>Соперничество между близкими
+</li>
+<li>Адюльтер, сопровождающийся убийством
+</li>
+<li>Безумие
+</li>
+<li>Фатальная неосторожность
+</li>
+<li>Невольное кровосмешение
+</li>
+<li>Невольное убийство близкого
+</li>
+<li>Самопожертвование во имя идеала
+</li>
+<li>Самопожертвование ради близких
+</li>
+<li>Жертва безмерной радости
+</li>
+<li>Жертва близким во имя долга
+</li>
+<li>Соперничество неравных
+</li>
+<li>Адюльтер
+</li>
+<li>Преступление любви
+</li>
+<li>Бесчестие любимого существа
+</li>
+<li>Любовь, встречающая препятствия
+</li>
+<li>Любовь к врагу
+</li>
+<li>Честолюбие
+</li>
+<li>Борьба против бога
+</li>
+<li>Неосновательная ревность
+</li>
+<li>Судебная ошибка
+</li>
+<li>Угрызения совести
+</li>
+<li>Вновь найденный
+</li>
+<li>Потеря близких
+
+<p>
+  Споры о том, сколько и каких сюжетов существует в литературе, ведутся до сих пор. Предлагаются разные варианты, разные цифры, но исследователи не могут прийти к единому мнению. В принципе каждый человек может найти свои варианты этого списка и, при должном желании, избавившись от всего лишнего, оставив только «скелет», найти подтверждение своей версии во всех произведениях мировой литературы.
+</p></li>
+</ul>
+
+</div>
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-01-29 18:51:49 MSK</p>
+<p class="date">Date: 2012-01-29 20:31:41 MSK</p>
 <p class="author">Author: Urist McLisper</p>
 <p class="creator">Org version 7.8.03 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
